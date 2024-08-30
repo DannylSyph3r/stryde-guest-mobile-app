@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_guest_app/core/providers/global_providers.dart';
+import 'package:stryde_guest_app/features/home/views/user_account_view.dart';
 import 'package:stryde_guest_app/features/home/widgets/ad_display_card.dart';
+import 'package:stryde_guest_app/features/notifications/views/notifications_view.dart';
+import 'package:stryde_guest_app/features/search/views/vehicle_search_view.dart';
 import 'package:stryde_guest_app/features/vehicles/models/rental_selection_model.dart';
 import 'package:stryde_guest_app/features/vehicles/views/full_vehicle_rental_details_view.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/rental_display_card.dart';
@@ -87,7 +90,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                 child: AppGraphics.memeoji.png
                                     .myImage(fit: BoxFit.contain),
                               ),
-                            ).tap(onTap: () {}),
+                            ).tap(onTap: () {
+                              goTo(context: context, view: UserAccountView());
+                            }),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
@@ -142,36 +147,45 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                 PhosphorIconsRegular.bellSimple,
                                 color: Palette.whiteColor,
                               ),
-                            ).tap(onTap: () {}),
+                            ).tap(onTap: () {
+                              goTo(context: context, view: NotificationsView());
+                            }),
                           ],
                         ),
                       ),
                       20.sbH,
                       Padding(
-                        padding: 15.padH,
-                        child: TextInputWidget(
-                          height: 50.h,
-                          radiusValue: 25.r,
-                          prefix: Padding(
-                            padding: 10.padH,
-                            child: Icon(
-                              PhosphorIconsBold.magnifyingGlass,
-                              color: Palette.strydeOrange,
-                              size: 23.h,
+                          padding: 15.padH,
+                          child: Hero(
+                            tag: 'search-hero',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w, vertical: 10.h),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Palette.buttonBG,
+                                  borderRadius: BorderRadius.circular(25.r),
+                                ),
+                                height: 50.h,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      PhosphorIconsBold.magnifyingGlass,
+                                      color: Palette.strydeOrange,
+                                      size: 25.h,
+                                    ),
+                                    SizedBox(width: 15.w),
+                                    "Search Vehicle".txt14(fontW: F.w6),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                          suffixIcon: Padding(
-                            padding: 15.padH,
-                            child: Icon(
-                              PhosphorIconsFill.funnel,
-                              color: Palette.strydeOrange,
-                              size: 23.h,
-                            ),
-                          ),
-                          hintText: "Search Vehicle",
-                          controller: _searchFieldController,
-                        ),
-                      ),
+                          ).gestureTap(onTap: () {
+                            goToUnanimated(
+                                context: context, view: VehicleSearchView());
+                          })),
                       20.sbH,
                       SizedBox(
                         height: 180.h,
