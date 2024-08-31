@@ -17,7 +17,6 @@ import 'package:stryde_guest_app/utils/app_constants.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/sliver_appbar.dart';
-import 'package:stryde_guest_app/utils/widgets/text_input.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});

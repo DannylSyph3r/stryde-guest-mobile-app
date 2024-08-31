@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_guest_app/features/search/filter_settings_view.dart';
+import 'package:stryde_guest_app/features/search/views/filter_settings_view.dart';
 import 'package:stryde_guest_app/features/vehicles/models/rental_selection_model.dart';
 import 'package:stryde_guest_app/features/vehicles/views/full_vehicle_rental_details_view.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/rental_display_card.dart';
