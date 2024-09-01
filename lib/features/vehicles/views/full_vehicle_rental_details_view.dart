@@ -73,10 +73,19 @@ class _FullVehicleRentalDetailsViewState
           actions: [
             Padding(
               padding: 20.padH,
-              child: Icon(
-                PhosphorIconsBold.heartStraight,
-                size: 28.h,
-              ).tap(onTap: () {}),
+              child: Container(
+                height: 40.h,
+                width: 40.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Palette.greyColor.withOpacity(0.6),
+                ),
+                child: Icon(
+                  PhosphorIconsFill.heartStraight,
+                  color: Palette.strydeOrange,
+                  size: 25.h,
+                ),
+              ),
             )
           ],
         ),

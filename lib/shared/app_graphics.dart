@@ -26,13 +26,14 @@ abstract class AppGraphics {
 
   //! Main App Assets
   static const carPl = 'car_pl_1';
-  static const carPlOne ='car_pl_1';
+  static const carPlOne = 'car_pl_1';
   static const carPlTwo = 'car_pl_2';
   static const carPlThree = 'car_pl_3';
   static const eclipse = 'eclipse';
   static const lightModePanel = 'light_panel';
   static const darkModePanel = 'dark_panel';
   static const adAvatar = 'ad_avatar';
+  static const mapPL = 'map';
 
   //! NavBar Assets
   static const String homeIcon = 'home';

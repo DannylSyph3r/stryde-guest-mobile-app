@@ -40,7 +40,6 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
   @override
   void initState() {
     super.initState();
-    // Add a listener to the FocusNode to detect changes
     _searchFocusNode.addListener(() {
       if (_searchFocusNode.hasFocus) {
         _fieldActiveNotifier.value = true;
@@ -63,192 +62,191 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _fieldActiveNotifier.sync(builder: (context, fieldActive, child) {
-        return ListView(
-          padding: fieldActive
-              ? EdgeInsets.symmetric(vertical: 45.h, horizontal: 0.w)
-              : EdgeInsets.symmetric(vertical: 45.h, horizontal: 15.w),
+        return Column(
           children: [
-            Column(
-              children: [
-                Padding(
-                  padding: fieldActive ? 15.padH : 0.0.padA,
-                  child: Row(
-                    children: [
-                      Icon(fieldActive ? Icons.close : Icons.arrow_back).tap(
-                          onTap: () {
-                        fieldActive
-                            ? _fieldActiveNotifier.value = false
-                            : goBack(context);
-                      }),
-                      5.sbW,
-                      Expanded(
-                        child: Hero(
-                          tag: 'search-hero',
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextInputWidget(
-                                focusNode: _searchFocusNode,
-                                height: 50.h,
-                                radiusValue: 25.r,
-                                prefix: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
-                                  child: Icon(
-                                    PhosphorIconsBold.magnifyingGlass,
-                                    color: Palette.strydeOrange,
-                                    size: 23.h,
-                                  ),
-                                ),
-                                suffixIcon: Padding(
-                                  padding: 15.padH,
-                                  child: Visibility(
-                                    visible: fieldActive,
-                                    child: Icon(PhosphorIconsFill.funnel,
-                                            size: 22.h,
-                                            color: Palette.strydeOrange)
-                                        .tap(onTap: () {
-                                      goTo(
-                                          context: context,
-                                          view: FilterSettingsView());
-                                    }),
-                                  ),
-                                ),
-                                hintText: "Search Vehicle",
-                                controller: _searchFieldController,
+            SizedBox(height: 45.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Icon(fieldActive ? Icons.close : Icons.arrow_back).tap(
+                    onTap: () {
+                      fieldActive
+                          ? _fieldActiveNotifier.value = false
+                          : goBack(context);
+                    },
+                  ),
+                  5.sbW,
+                  Expanded(
+                    child: Hero(
+                      tag: 'search-hero',
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextInputWidget(
+                            focusNode: _searchFocusNode,
+                            height: 50.h,
+                            radiusValue: 25.r,
+                            prefix: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: Icon(
+                                PhosphorIconsBold.magnifyingGlass,
+                                color: Palette.strydeOrange,
+                                size: 23.h,
                               ),
                             ),
+                            suffixIcon: Padding(
+                              padding: 15.padH,
+                              child: Visibility(
+                                visible: fieldActive,
+                                child: Icon(PhosphorIconsFill.funnel,
+                                        size: 22.h, color: Palette.strydeOrange)
+                                    .tap(onTap: () {
+                                  goTo(
+                                      context: context,
+                                      view: FilterSettingsView());
+                                }),
+                              ),
+                            ),
+                            hintText: "Search Vehicle",
+                            controller: _searchFieldController,
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                !fieldActive
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          10.sbH,
-                          _locationToggle.sync(
-                              builder: (context, locationActive, child) {
-                            return Container(
-                              padding: 12.0.padA,
-                              width: 120.w,
-                              decoration: BoxDecoration(
-                                  color: locationActive
-                                      ? Palette.strydeOrange
-                                      : Palette.buttonBG,
-                                  borderRadius: BorderRadius.circular(25.r)),
-                              child: Row(children: [
-                                Icon(
-                                  PhosphorIconsFill.mapPin,
-                                  size: 23.h,
-                                  color: locationActive
-                                      ? Palette.whiteColor
-                                      : Palette.strydeOrange,
-                                ),
-                                5.sbW,
-                                "Location".txt16(),
-                              ]),
-                            ).tap(onTap: () {
-                              _locationToggle.value = !_locationToggle.value;
-                            });
-                          }),
-                          20.sbH,
-                          Row(
-                            children: [
-                              Icon(PhosphorIconsFill.hourglassMedium,
-                                  size: 25.h, color: Palette.strydeOrange),
-                              5.sbW,
-                              "History".txt18(fontW: F.w6),
-                            ],
-                          ),
-                          10.sbH,
-                          Wrap(
-                              spacing: 5.w,
-                              runSpacing: 10.h,
-                              children:
-                                  List.generate(carBrands.length, (index) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 9.w, vertical: 9.h),
-                                  decoration: BoxDecoration(
-                                      color: Palette.buttonBG,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(27.r))),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      carBrands[index].txt14(),
-                                    ],
-                                  ),
-                                );
-                              })),
-                          30.sbH,
-                          Row(
-                            children: [
-                              Icon(PhosphorIconsFill.flame,
-                                  size: 25.h, color: Palette.strydeOrange),
-                              5.sbW,
-                              "Trending".txt18(fontW: F.w6),
-                            ],
-                          ),
-                          10.sbH,
-                          Wrap(
-                              spacing: 5.w,
-                              runSpacing: 10.h,
-                              children:
-                                  List.generate(carBrands.length, (index) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 9.w, vertical: 9.h),
-                                  decoration: BoxDecoration(
-                                      color: Palette.buttonBG,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(27.r))),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      carBrands[index].txt14(),
-                                    ],
-                                  ),
-                                );
-                              })),
-                        ],
-                      )
-                    : GridView.builder(
-                        shrinkWrap: true,
-                        padding: 15.padV,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0.w,
-                          mainAxisSpacing: 20.h,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemCount: rentalSelections.length,
-                        itemBuilder: (context, index) {
-                          RentalSelection rentalCardDisplay =
-                              rentalSelections[index];
-                          return RentalDisplayCard(
-                              carImagePath: rentalCardDisplay.carImagePath,
-                              manufacturerName:
-                                  rentalCardDisplay.manufacturerName,
-                              modelName: rentalCardDisplay.modelName,
-                              reviewStarCount:
-                                  rentalCardDisplay.reviewCountAverage,
-                              onTileTap: () {
-                                goTo(
-                                    context: context,
-                                    view: FullVehicleRentalDetailsView());
-                              },
-                              onLikeTap: () {});
-                        },
-                      ),
-              ],
+                ],
+              ),
+            ),
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: fieldActive ? _buildActiveView() : _buildInactiveView(),
+              ),
             ),
           ],
+        );
+      }),
+    );
+  }
+
+  Widget _buildInactiveView() {
+    return ListView(
+      key: ValueKey<bool>(false),
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      children: [
+        10.sbH,
+        _locationToggle.sync(
+          builder: (context, locationActive, child) {
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                padding: 12.0.padA,
+                decoration: BoxDecoration(
+                  color:
+                      locationActive ? Palette.strydeOrange : Palette.buttonBG,
+                  borderRadius: BorderRadius.circular(25.r),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      PhosphorIconsFill.mapPin,
+                      size: 23.h,
+                      color: locationActive
+                          ? Palette.whiteColor
+                          : Palette.strydeOrange,
+                    ),
+                    5.sbW,
+                    "Location".txt16(),
+                  ],
+                ),
+              ).tap(onTap: () {
+                _locationToggle.value = !_locationToggle.value;
+              }),
+            );
+          },
+        ),
+        20.sbH,
+        Row(
+          children: [
+            Icon(PhosphorIconsFill.hourglassMedium,
+                size: 25.h, color: Palette.strydeOrange),
+            5.sbW,
+            "History".txt18(fontW: F.w6),
+          ],
+        ),
+        10.sbH,
+        _buildChipList(),
+        30.sbH,
+        Row(
+          children: [
+            Icon(PhosphorIconsFill.flame,
+                size: 25.h, color: Palette.strydeOrange),
+            5.sbW,
+            "Trending".txt18(fontW: F.w6),
+          ],
+        ),
+        10.sbH,
+        _buildChipList(),
+      ],
+    );
+  }
+
+  Widget _buildActiveView() {
+    return CustomScrollView(
+      key: ValueKey<bool>(true),
+      slivers: [
+        SliverPadding(
+          padding: EdgeInsets.all(15.w),
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 15.w,
+              mainAxisSpacing: 15.h,
+              childAspectRatio: 0.8,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                RentalSelection rentalCardDisplay = rentalSelections[index];
+                return RentalDisplayCard(
+                  carImagePath: rentalCardDisplay.carImagePath,
+                  manufacturerName: rentalCardDisplay.manufacturerName,
+                  modelName: rentalCardDisplay.modelName,
+                  reviewStarCount: rentalCardDisplay.reviewCountAverage,
+                  onTileTap: () {
+                    goTo(
+                        context: context, view: FullVehicleRentalDetailsView());
+                  },
+                  onLikeTap: () {},
+                );
+              },
+              childCount: rentalSelections.length,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChipList() {
+    return Wrap(
+      spacing: 5.w,
+      runSpacing: 10.h,
+      children: List.generate(carBrands.length, (index) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 9.h),
+          decoration: BoxDecoration(
+            color: Palette.buttonBG,
+            borderRadius: BorderRadius.all(Radius.circular(27.r)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              carBrands[index].txt14(),
+            ],
+          ),
         );
       }),
     );
