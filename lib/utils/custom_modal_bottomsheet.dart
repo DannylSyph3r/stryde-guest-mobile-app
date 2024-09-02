@@ -49,6 +49,7 @@ void showCustomModal(
   BuildContext context, {
   required double modalHeight,
   required Widget child,
+  VoidCallback? onDismissed, // Make onDismissed nullable
 }) {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -59,5 +60,9 @@ void showCustomModal(
       modalHeight: modalHeight,
       child: child,
     ),
-  );
+  ).then((value) {
+    if (onDismissed != null) {
+      onDismissed(); // Call onDismissed only if it is provided
+    }
+  });
 }
