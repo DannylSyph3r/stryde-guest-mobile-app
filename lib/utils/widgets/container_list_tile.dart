@@ -80,15 +80,19 @@ class OptionSelectionContainerTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  titleLabel.txt(
-                    size: titleFontSize ?? 14.sp,
-                    fontW: titleFontWeight ?? F.w6,
-                    color: (contentOpacity ?? false)
-                        ? (titleFontColor ??
-                                Theme.of(context).textTheme.bodySmall?.color)
-                            ?.withOpacity(0.5)
-                        : (titleFontColor ??
-                            Theme.of(context).textTheme.bodySmall?.color),
+                  SizedBox(
+                    width: 210.w,
+                    child: titleLabel.txt(
+                      size: titleFontSize ?? 14.sp,
+                      fontW: titleFontWeight ?? F.w6,
+                      overflow: TextOverflow.ellipsis,
+                      color: (contentOpacity ?? false)
+                          ? (titleFontColor ??
+                                  Theme.of(context).textTheme.bodySmall?.color)
+                              ?.withOpacity(0.5)
+                          : (titleFontColor ??
+                              Theme.of(context).textTheme.bodySmall?.color),
+                    ),
                   ),
                   if (subtitleLabel != null) ...[
                     SizedBox(height: 2.h),

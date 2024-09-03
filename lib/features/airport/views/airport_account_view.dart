@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_guest_app/features/airport/views/airport_trips_view.dart';
 import 'package:stryde_guest_app/features/home/views/user_profile_view.dart';
 import 'package:stryde_guest_app/features/settings/views/app_settings_view.dart';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
@@ -117,7 +118,9 @@ class AirportAccountView extends ConsumerWidget {
                   leadingIconColor: Palette.whiteColor,
                   titleLabel: "Trips",
                   titleFontWeight: F.w6,
-                  onTileTap: () {},
+                  onTileTap: () {
+                    goTo(context: context, view: AirportTripsView());
+                  },
                 ),
                 const OptionSelectionListTile(
                   interactiveTrailing: false,
