@@ -5,12 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stryde_guest_app/features/calendar/views/calendar_view.dart';
 import 'package:stryde_guest_app/features/reviews/widgets/review_card.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/vehicle_specs_tab.dart';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/shared/app_texts.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
+import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/appbar.dart';
 import 'package:stryde_guest_app/utils/widgets/row_railer.dart';
 
@@ -412,7 +414,9 @@ class _FullVehicleRentalDetailsViewState
                   borderRadius: BorderRadius.circular(25.r),
                 ),
                 child: Center(child: "Rent".txt16()),
-              ).tap(onTap: () {}),
+              ).tap(onTap: () {
+                goTo(context: context, view: CalendarView());
+              }),
             ],
           ),
         ),
