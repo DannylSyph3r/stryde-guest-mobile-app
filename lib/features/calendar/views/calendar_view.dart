@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_guest_app/features/calendar/providers/calendar_providers.dart';
 import 'package:stryde_guest_app/features/calendar/widgets/selection_calendar.dart';
+import 'package:stryde_guest_app/features/vehicles/views/rental_summary_view.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
+import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/appbar.dart';
 import 'package:stryde_guest_app/utils/widgets/button.dart';
 
@@ -88,11 +90,19 @@ class CalendarView extends ConsumerWidget {
 
     return Scaffold(
       appBar: customAppBar(
-        title: "Calendar",
-        context: context,
-        color: Colors.transparent,
-        isTitleCentered: true,
-      ),
+          title: "Calendar",
+          context: context,
+          color: Colors.transparent,
+          isTitleCentered: true,
+          overrideBackButtonAction: true,
+          backFunction: () {
+            ref.invalidate(pickupDateProvider);
+            ref.invalidate(dropoffDateProvider);
+            ref.read(pickupTimeProvider.notifier).state =
+                const TimeOfDay(hour: 0, minute: 0);
+            ref.read(dropoffTimeProvider.notifier).state =
+                const TimeOfDay(hour: 12, minute: 59);
+          }),
       body: Padding(
         padding: 15.padH,
         child: ListView(
@@ -155,6 +165,14 @@ class CalendarView extends ConsumerWidget {
                   padding: 15.0.padA,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: const Offset(0, 4),
+                          blurRadius: 8.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(18.r)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,6 +202,14 @@ class CalendarView extends ConsumerWidget {
                   padding: 15.0.padA,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: const Offset(0, 4),
+                          blurRadius: 8.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(18.r)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,6 +244,14 @@ class CalendarView extends ConsumerWidget {
                   padding: 15.0.padA,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: const Offset(0, 4),
+                          blurRadius: 8.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
                       border: Border.all(color: Palette.strydeOrange),
                       borderRadius: BorderRadius.circular(18.r)),
                   child: Row(
@@ -238,6 +272,14 @@ class CalendarView extends ConsumerWidget {
                   padding: 15.0.padA,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: const Offset(0, 4),
+                          blurRadius: 8.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
                       border: Border.all(color: Palette.strydeOrange),
                       borderRadius: BorderRadius.circular(18.r)),
                   child: Row(
@@ -259,7 +301,20 @@ class CalendarView extends ConsumerWidget {
             if (pickupDate != null && dropoffDate != null)
               AppButton(
                 text: "Proceed",
-                onTap: () {},
+                onTap: () {
+                  goTo(
+                      context: context,
+                      view: RentalSummaryView(
+                          vehicleManufacturerName: "Mercedes-Benz",
+                          vehicleModelName: "G-Class",
+                          exchangeLocation: "Abuja",
+                          daysDuration:
+                              "${dropoffDate.difference(pickupDate).inDays + 1}",
+                          pickUpDate: pickupDate,
+                          dropOffDate: dropoffDate,
+                          pickupTime: pickupTime,
+                          dropOffTime: dropoffTime));
+                },
               ).alignCenter(),
             50.sbH
           ],

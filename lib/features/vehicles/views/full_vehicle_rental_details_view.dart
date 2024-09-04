@@ -399,25 +399,28 @@ class _FullVehicleRentalDetailsViewState
           height: 60.h,
           width: 350.h,
           decoration: BoxDecoration(
-            color: Palette.greyColor,
+            color: Palette.blackColor,
             borderRadius: BorderRadius.circular(30.r),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              "₦250,000 / day".txt18(fontW: F.w6),
-              Container(
-                height: 40.h,
-                width: 100.h,
-                decoration: BoxDecoration(
-                  color: Palette.strydeOrange,
-                  borderRadius: BorderRadius.circular(25.r),
-                ),
-                child: Center(child: "Rent".txt16()),
-              ).tap(onTap: () {
-                goTo(context: context, view: CalendarView());
-              }),
-            ],
+          child: Padding(
+            padding: 10.padH,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                "₦250,000 / day".txt16(fontW: F.w6),
+                Container(
+                  height: 40.h,
+                  width: 100.h,
+                  decoration: BoxDecoration(
+                    color: Palette.strydeOrange,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Center(child: "Rent".txt16()),
+                ).tap(onTap: () {
+                  goTo(context: context, view: CalendarView());
+                }),
+              ],
+            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);

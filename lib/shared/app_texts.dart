@@ -62,7 +62,7 @@ abstract class AppTexts {
 
   static const String securityDescription = "This is necessary to ensure the safety of your vehicle";
 
-  static const String garageVerifiationConfirmation = "Your Car Specifications have been sent in for Verfication!";
+  static const String rentalRequestConfirmation = "Your Car Rental Request has been sent to the host! Hold on for confirmation";
   static const String vehicleImageAttachmentInfo = "Please attach images of the front, sides and rear views of your vehicle";
   static const String carDescriptionPlaceHolder = "This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge. This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge";
 
