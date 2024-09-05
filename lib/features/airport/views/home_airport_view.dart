@@ -129,8 +129,10 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                 child: const Icon(
                                   PhosphorIconsBold.list,
                                   color: Palette.strydeOrange,
-                                ).tap(onTap: (){
-                                  goTo(context: context, view: AirportAccountView());
+                                ).tap(onTap: () {
+                                  goTo(
+                                      context: context,
+                                      view: AirportAccountView());
                                 }),
                               ),
                               Row(
@@ -141,10 +143,11 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 12.5.h, horizontal: 15.w),
                                     decoration: BoxDecoration(
-                                      color: Palette.buttonBG,
-                                      border: const Border(
-                                          right: BorderSide(
-                                              color: Palette.darkBG)),
+                                      color: widget.switcherNotifier.value == 0
+                                          ? Palette.buttonBG
+                                          : Palette.darkBG,
+                                      border: Border.all(
+                                          color: Palette.buttonBG, width: 1.5),
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(15.r),
                                         bottomLeft: Radius.circular(15.r),
@@ -160,11 +163,10 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                         vertical: 12.5.h, horizontal: 15.w),
                                     decoration: BoxDecoration(
                                       color: widget.switcherNotifier.value == 1
-                                          ? Palette.strydeOrange
-                                          : Palette.buttonBG,
-                                      border: const Border(
-                                          left: BorderSide(
-                                              color: Palette.darkBG)),
+                                          ? Palette.buttonBG
+                                          : Palette.darkBG,
+                                      border: Border.all(
+                                          color: Palette.buttonBG, width: 1.5),
                                       borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(15.r),
                                         bottomRight: Radius.circular(15.r),
@@ -384,15 +386,14 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                             Column(
                                               children: [
                                                 Icon(PhosphorIconsFill.circle,
-                                                    color: Palette.strydeOrange,
+                                                    color: Palette.whiteColor,
                                                     size: 20.h),
                                                 5.sbH,
                                                 Container(
                                                   height: 10.h,
                                                   width: 2.5.w,
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          Palette.strydeOrange,
+                                                      color: Palette.whiteColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.r)),
@@ -402,8 +403,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                   height: 20.h,
                                                   width: 2.5.w,
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          Palette.strydeOrange,
+                                                      color: Palette.whiteColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.r)),
@@ -413,8 +413,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                   height: 20.h,
                                                   width: 2.5.w,
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          Palette.strydeOrange,
+                                                      color: Palette.whiteColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.r)),
@@ -424,8 +423,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                   height: 10.h,
                                                   width: 2.5.w,
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          Palette.strydeOrange,
+                                                      color: Palette.whiteColor,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.r)),
@@ -434,7 +432,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                 Icon(
                                                     PhosphorIconsFill
                                                         .mapPinArea,
-                                                    color: Palette.strydeOrange,
+                                                    color: Palette.whiteColor,
                                                     size: 20.h),
                                               ],
                                             ),
@@ -489,7 +487,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                               PhosphorIconsFill
                                                                   .mapPin,
                                                               color: Palette
-                                                                  .strydeOrange,
+                                                                  .whiteColor,
                                                               size: 25.h,
                                                             ),
                                                           ],
@@ -515,7 +513,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                           PhosphorIconsBold
                                                               .arrowsDownUp,
                                                           color: Palette
-                                                              .strydeOrange,
+                                                              .whiteColor,
                                                           size: 18.h),
                                                     ),
                                                   ),
@@ -651,6 +649,8 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                 ),
                                               ],
                                             ),
+                                            3.sbH,
+                                            "SUV, 2006".txt12(fontW: F.w6)
                                           ],
                                         ),
                                       ),
@@ -663,7 +663,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                     if (isTripStarted)
                                       Icon(
                                         PhosphorIconsFill.envelope,
-                                        color: Palette.strydeOrange,
+                                        color: Palette.whiteColor,
                                         size: 30.h,
                                       ).tap(onTap: () {
                                         goTo(
@@ -671,8 +671,8 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                       }),
                                     15.sbW,
                                     Icon(
-                                      PhosphorIconsBold.x,
-                                      color: Palette.strydeOrange,
+                                      PhosphorIconsFill.xCircle,
+                                      color: Colors.red,
                                       size: 32.h,
                                     ).tap(onTap: () {
                                       if (isTripStarted) {
@@ -697,13 +697,13 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                       15.sbW,
                                       Icon(
                                         PhosphorIconsFill.steeringWheel,
-                                        color: Palette.strydeOrange,
+                                        color: Palette.whiteColor,
                                         size: 30.h,
                                       ),
                                       15.sbW,
                                       Icon(
-                                        PhosphorIconsBold.caretCircleRight,
-                                        color: Palette.strydeOrange,
+                                        PhosphorIconsFill.caretCircleRight,
+                                        color: Palette.whiteColor,
                                         size: 30.h,
                                       ),
                                     ],

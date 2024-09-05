@@ -107,7 +107,7 @@ class _AirportVehicleSelectionViewState
                         padding: 20.padH,
                         child: Icon(
                           PhosphorIconsFill.squaresFour,
-                          color: Palette.strydeOrange,
+                          color: Palette.whiteColor,
                           size: 30.h,
                         ).tap(onTap: () {
                           Scaffold.of(context).openEndDrawer();

@@ -34,7 +34,7 @@ class AdDisplayCard extends ConsumerWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 decoration: BoxDecoration(
-                  color: Palette.strydeOrange,
+                  color: Palette.greyColor,
                   borderRadius: BorderRadius.circular(18.r)
                 ),
                 child: Center(

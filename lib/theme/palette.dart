@@ -6,5 +6,5 @@ class Palette {
   static const buttonBG = Color(0xff464646);
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffFFFFFF);
-  static const greyColor = Color(0xff636363);
+  static const greyColor = Color(0xff505050);
 }

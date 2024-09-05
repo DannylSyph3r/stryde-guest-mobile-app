@@ -136,17 +136,17 @@ class CalendarView extends ConsumerWidget {
                     5.sbW,
                     if (pickupDate != null && dropoffDate != null)
                       "${dropoffDate.difference(pickupDate).inDays + 1} Days"
-                          .txt16(fontW: F.w6, color: Palette.strydeOrange),
+                          .txt16(fontW: F.w6, color: Palette.whiteColor),
                   ],
                 ),
                 if (pickupDate != null)
                   Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 18.w),
                     decoration: BoxDecoration(
                         color: Palette.strydeOrange,
                         borderRadius: BorderRadius.circular(21.r)),
-                    child: "Reset".txt14(),
+                    child: "Reset".txt12(),
                   ).tap(onTap: () {
                     ref.read(pickupDateProvider.notifier).state = null;
                     ref.read(dropoffDateProvider.notifier).state = null;

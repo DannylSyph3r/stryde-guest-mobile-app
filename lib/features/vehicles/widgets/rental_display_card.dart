@@ -97,7 +97,7 @@ class RentalDisplayCard extends StatelessWidget {
                           children: [
                             modelName.txt(
                               size: 14.sp,
-                              color: Palette.strydeOrange,
+                              color: Palette.whiteColor.withOpacity(0.8),
                               fontW: F.w6,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -122,7 +122,7 @@ class RentalDisplayCard extends StatelessWidget {
                                   size: 14.sp,
                                   fontW: F.w4,
                                 ),
-                            2.sbW,
+                            4.sbW,
                             Icon(
                               PhosphorIconsFill.star,
                               size: 18.h,

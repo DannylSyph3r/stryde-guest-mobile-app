@@ -96,10 +96,10 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                                     vertical: 12.5.h, horizontal: 15.w),
                                 decoration: BoxDecoration(
                                   color: widget.switcherNotifier.value == 0
-                                      ? Palette.strydeOrange
-                                      : Palette.buttonBG,
-                                  border: const Border(
-                                      right: BorderSide(color: Palette.darkBG)),
+                                      ? Palette.buttonBG
+                                      : Palette.darkBG,
+                                  border: Border.all(
+                                      color: Palette.buttonBG, width: 1.5),
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15.r),
                                     bottomLeft: Radius.circular(15.r),
@@ -112,9 +112,11 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                                 padding: EdgeInsets.symmetric(
                                     vertical: 12.5.h, horizontal: 15.w),
                                 decoration: BoxDecoration(
-                                  color: Palette.buttonBG,
-                                  border: const Border(
-                                      left: BorderSide(color: Palette.darkBG)),
+                                  color: widget.switcherNotifier.value == 1
+                                      ? Palette.greyColor
+                                      : Palette.darkBG,
+                                  border: Border.all(
+                                      color: Palette.buttonBG, width: 1.5),
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(15.r),
                                     bottomRight: Radius.circular(15.r),
@@ -165,7 +167,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                                 children: [
                                   Icon(
                                     PhosphorIconsBold.magnifyingGlass,
-                                    color: Palette.strydeOrange,
+                                    color: Palette.whiteColor.withOpacity(0.5),
                                     size: 25.h,
                                   ),
                                   SizedBox(width: 15.w),

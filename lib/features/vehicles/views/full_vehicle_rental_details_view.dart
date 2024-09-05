@@ -68,6 +68,7 @@ class _FullVehicleRentalDetailsViewState
     return Scaffold(
         appBar: customAppBar(
           title: "Mercedes Benz",
+          fontWeight: FontWeight.w600,
           context: context,
           toolbarHeight: 70.h,
           color: Colors.transparent,
@@ -95,7 +96,7 @@ class _FullVehicleRentalDetailsViewState
           padding: 0.padV,
           children: [
             "G-Class"
-                .txt16(color: Palette.strydeOrange, textAlign: TextAlign.center)
+                .txt16(color: Palette.whiteColor, textAlign: TextAlign.center)
                 .alignCenter(),
             15.sbH,
             Padding(
@@ -207,7 +208,7 @@ class _FullVehicleRentalDetailsViewState
                 "(100)".txt14(),
               ]),
               trailing:
-                  "SNK-123XZ".txt14(fontW: F.w6, color: Palette.strydeOrange),
+                  "SNK-123XZ".txt14(fontW: F.w6, color: Palette.whiteColor),
             ),
             30.sbH,
             Padding(
@@ -374,7 +375,7 @@ class _FullVehicleRentalDetailsViewState
               trailing: Icon(
                 PhosphorIconsFill.envelope,
                 size: 30.h,
-                color: Palette.strydeOrange,
+                color: Palette.whiteColor,
               ),
             ),
             20.sbH,
