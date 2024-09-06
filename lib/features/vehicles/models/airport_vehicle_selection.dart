@@ -1,21 +1,23 @@
 import 'dart:math';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
 
-class RentalSelection {
+class AirportVehicleSelection {
   final String carImagePath;
   final String manufacturerName;
   final String modelName;
-  final String vehicleBodyType;
+  final String vehicleClass;
+  final String vehicleYear;
   final double reviewCountAverage;
-  final int dailyRentalRate;
+  final int rentalRate;
 
-  RentalSelection({
+  AirportVehicleSelection({
     required this.carImagePath,
     required this.manufacturerName,
     required this.modelName,
-    required this.vehicleBodyType,
+    required this.vehicleClass,
+    required this.vehicleYear,
     required this.reviewCountAverage,
-    required this.dailyRentalRate,
+    required this.rentalRate,
   });
 }
 
@@ -30,408 +32,464 @@ String getRandomCarImage() {
   return carImages[_random.nextInt(carImages.length)];
 }
 
-int getRandomDailyRentalRate() {
+int getRandomRentalRate() {
   return 50000 + _random.nextInt(49000);
 }
 
 double getRandomReviewCountAverage() {
-  // Generate a random double between 3.0 and 5.0
   double randomDouble = (_random.nextDouble() * 2.0) + 3.0;
-  // Round the number to one decimal place and ensure it is less than 5
   return double.parse(randomDouble.toStringAsFixed(1));
 }
 
-List<RentalSelection> rentalSelections = [
-  RentalSelection(
+String getRandomVehicleClass() {
+  final vehicleClasses = ['SUV', 'Sedan', 'Van', 'Armored', 'Elite'];
+  return vehicleClasses[_random.nextInt(vehicleClasses.length)];
+}
+
+String getRandomVehicleYear() {
+  return (2006 + _random.nextInt(19)).toString();
+}
+
+List<AirportVehicleSelection> airportVehicleSelections = [
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
     modelName: "Camry",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "BMW",
     modelName: "4 Series",
-    vehicleBodyType: "Coupe",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-Benz",
-    modelName: "C-Class Cabriolet",
-    vehicleBodyType: "Convertible",
+    modelName: "C-Class",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volkswagen",
     modelName: "Golf",
-    vehicleBodyType: "Hatchback",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Subaru",
     modelName: "Outback",
-    vehicleBodyType: "Station Wagon",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Jeep",
     modelName: "Grand Cherokee",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Honda",
     modelName: "CR-V",
-    vehicleBodyType: "Crossover",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Chrysler",
     modelName: "Pacifica",
-    vehicleBodyType: "Minivan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ford",
     modelName: "Transit",
-    vehicleBodyType: "Van",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ford",
     modelName: "F-150",
-    vehicleBodyType: "Pickup Truck",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Fiat",
     modelName: "500",
-    vehicleBodyType: "Microcar",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mazda",
     modelName: "MX-5 Miata",
-    vehicleBodyType: "Roadster",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  // RentalSelection(
-  //   carImagePath: getRandomCarImage(),
-  //   manufacturerName: "Mercedes-Benz",
-  //   modelName: "Sprinter",
-  //   vehicleBodyType: "Panel Van",
-  //   reviewCountAverage: getRandomReviewCountAverage(),
-  //   dailyRentalRate: getRandomDailyRentalRate(),
-  // ),
-  RentalSelection(
+  AirportVehicleSelection(
+    carImagePath: getRandomCarImage(),
+    manufacturerName: "Mercedes-Benz",
+    modelName: "Sprinter",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
+    reviewCountAverage: getRandomReviewCountAverage(),
+    rentalRate: getRandomRentalRate(),
+  ),
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Land Rover",
     modelName: "Defender",
-    vehicleBodyType: "Off-Road Vehicle",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "AM General",
     modelName: "HMMWV",
-    vehicleBodyType: "Military Vehicle",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Winnebago",
     modelName: "Travato",
-    vehicleBodyType: "RV (Recreational Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Lincoln",
     modelName: "Navigator",
-    vehicleBodyType: "Limousine",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Isuzu",
     modelName: "N-Series",
-    vehicleBodyType: "Box Truck",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
     modelName: "Yaris",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Hyundai",
     modelName: "Elantra",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Chevrolet",
     modelName: "Corvette",
-    vehicleBodyType: "Coupe",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mazda",
     modelName: "MX-5 Miata RF",
-    vehicleBodyType: "Convertible",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mini",
     modelName: "Cooper",
-    vehicleBodyType: "Hatchback",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volvo",
     modelName: "V60",
-    vehicleBodyType: "Station Wagon",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ford",
     modelName: "Explorer",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Hyundai",
     modelName: "Tucson",
-    vehicleBodyType: "Crossover",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
     modelName: "Sienna",
-    vehicleBodyType: "Minivan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-Benz",
     modelName: "Metris",
-    vehicleBodyType: "Van",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "RAM",
     modelName: "1500",
-    vehicleBodyType: "Pickup Truck",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ford",
     modelName: "Mustang",
-    vehicleBodyType: "Coupe",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Chevrolet",
     modelName: "Camaro",
-    vehicleBodyType: "Convertible",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Honda",
     modelName: "Civic",
-    vehicleBodyType: "Hatchback",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volvo",
     modelName: "V90",
-    vehicleBodyType: "Station Wagon",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
     modelName: "Land Cruiser",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Subaru",
     modelName: "Outback",
-    vehicleBodyType: "Crossover",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Chrysler",
     modelName: "Pacifica",
-    vehicleBodyType: "Minivan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "RAM",
     modelName: "1500",
-    vehicleBodyType: "Pickup Truck",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Fiat",
     modelName: "500",
-    vehicleBodyType: "Microcar",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mazda",
     modelName: "MX-5 Miata",
-    vehicleBodyType: "Roadster",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Audi",
     modelName: "A4",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "BMW",
     modelName: "Z4",
-    vehicleBodyType: "Convertible",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Nissan",
     modelName: "Altima",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Hyundai",
     modelName: "Tucson",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Jeep",
     modelName: "Wrangler",
-    vehicleBodyType: "Off-Road Vehicle",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Porsche",
     modelName: "911",
-    vehicleBodyType: "Coupe",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Land Rover",
     modelName: "Range Rover",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Tesla",
     modelName: "Model S",
-    vehicleBodyType: "Sedan",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Buick",
     modelName: "Enclave",
-    vehicleBodyType: "SUV (Sport Utility Vehicle)",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
-  RentalSelection(
+  AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Lexus",
     modelName: "RX",
-    vehicleBodyType: "Crossover",
+    vehicleClass: getRandomVehicleClass(),
+    vehicleYear: getRandomVehicleYear(),
     reviewCountAverage: getRandomReviewCountAverage(),
-    dailyRentalRate: getRandomDailyRentalRate(),
+    rentalRate: getRandomRentalRate(),
   ),
 ];

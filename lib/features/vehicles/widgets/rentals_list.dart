@@ -46,6 +46,7 @@ class RentalList extends ConsumerWidget {
           ),
           child: Row(
             children: [
+              // Image container with specific height and width
               Expanded(
                 flex: 2,
                 child: ClipRRect(
@@ -53,10 +54,16 @@ class RentalList extends ConsumerWidget {
                     topLeft: Radius.circular(15.r),
                     bottomLeft: Radius.circular(15.r),
                   ),
-                  child: AppGraphics.carPlOne.png.myImage(
-                    height: 160.h,
-                    width: 140.h,
-                    fit: BoxFit.cover,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 200.h, // Minimum height
+                      maxHeight: 200.h, // Maximum height
+                      minWidth: 120.h, // Set proportional minWidth
+                      maxWidth: 120.h, // Set proportional maxWidth
+                    ),
+                    child: AppGraphics.carPlOne.png.myImage(
+                      fit: BoxFit.cover, // Use cover for better scaling
+                    ),
                   ),
                 ),
               ),
@@ -67,21 +74,16 @@ class RentalList extends ConsumerWidget {
                   padding: EdgeInsets.only(right: 10.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: vehicleBrandName
-                                .txt(
-                                  size: 15.sp,
-                                  fontW: F.w6,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                )
-                                .alignCenterLeft(),
-                          ),
-                        ],
-                      ),
+                      vehicleBrandName
+                          .txt(
+                            size: 15.sp,
+                            fontW: F.w6,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                          )
+                          .alignCenterLeft(),
                       5.sbH,
                       vehicleTrim
                           .txt(
@@ -90,39 +92,27 @@ class RentalList extends ConsumerWidget {
                           )
                           .alignCenterLeft(),
                       5.sbH,
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RentalCardEventListTile(
-                              horizontalContentPadding: 5.w,
-                              leadingIcon: PhosphorIconsFill.circle,
-                              leadingIconColor: Palette.strydeOrange,
-                              leadingIconSize: 15.h,
-                              titleLabel: "Pick-up",
-                              titleFontWeight: F.w6,
-                              subtitleLabel: "11th January 2024 3:30PM",
-                              subtitleFontSize: 12.sp,
-                              interactiveTrailing: false,
-                            ),
-                          ),
-                        ],
+                      RentalCardEventListTile(
+                        horizontalContentPadding: 5.w,
+                        leadingIcon: PhosphorIconsFill.circle,
+                        leadingIconColor: Palette.strydeOrange,
+                        leadingIconSize: 15.h,
+                        titleLabel: "Pick-up",
+                        titleFontWeight: F.w6,
+                        subtitleLabel: "28th September 2024 8:88PM",
+                        subtitleFontSize: 12.sp,
+                        interactiveTrailing: false,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RentalCardEventListTile(
-                              horizontalContentPadding: 5.w,
-                              leadingIcon: PhosphorIconsFill.circle,
-                              leadingIconColor: Palette.whiteColor,
-                              leadingIconSize: 15.h,
-                              titleLabel: "Drop-off",
-                              titleFontWeight: F.w6,
-                              subtitleLabel: "13th January 2024 3:30PM",
-                              subtitleFontSize: 12.sp,
-                              interactiveTrailing: false,
-                            ),
-                          ),
-                        ],
+                      RentalCardEventListTile(
+                        horizontalContentPadding: 5.w,
+                        leadingIcon: PhosphorIconsFill.circle,
+                        leadingIconColor: Palette.whiteColor,
+                        leadingIconSize: 15.h,
+                        titleLabel: "Drop-off",
+                        titleFontWeight: F.w6,
+                        subtitleLabel: "28th September 2024 8:88PM",
+                        subtitleFontSize: 12.sp,
+                        interactiveTrailing: false,
                       ),
                     ],
                   ),

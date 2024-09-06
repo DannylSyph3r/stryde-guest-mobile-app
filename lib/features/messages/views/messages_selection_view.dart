@@ -20,6 +20,24 @@ class MessagesSelectionView extends ConsumerStatefulWidget {
 }
 
 class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
+  final List<Map<String, String>> allMessages = [
+    {
+      'name': 'Slethware Kazumi Namikazi dominictio',
+      'date': 'Today',
+      'time': '06:54 AM',
+      'lastMessage': AppTexts.rentalGreetingText,
+    },
+    {
+      'name': 'Slethware Kazumi',
+      'date': 'Today',
+      'time': '06:54 AM',
+      'lastMessage': AppTexts.rentalGreetingText,
+    },
+  ];
+
+  // Sample data for unread messages
+  final List<Map<String, String>> unreadMessages = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +81,9 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
                     unselectedLabelColor: Palette.whiteColor,
                     labelStyle: GoogleFonts.montserrat(
                       textStyle: TextStyle(
-                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     unselectedLabelStyle: GoogleFonts.montserrat(
                       textStyle: TextStyle(fontSize: 16.sp),
@@ -75,12 +95,16 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              "All".txt(size: 14.sp),
-                              5.sbW,
-                              "8".txt(
-                                  size: 14.sp,
+                              Text("All", style: TextStyle(fontSize: 14.sp)),
+                              SizedBox(width: 5.w),
+                              Text(
+                                allMessages.length.toString(),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
                                   color: Palette.strydeOrange,
-                                  fontW: F.w6),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -91,9 +115,15 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              "Unread".txt(size: 14.sp),
-                              5.sbW,
-                              "5".txt(size: 14.sp, color: Palette.strydeOrange),
+                              Text("Unread", style: TextStyle(fontSize: 14.sp)),
+                              SizedBox(width: 5.w),
+                              Text(
+                                unreadMessages.length.toString(),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Palette.strydeOrange,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -104,50 +134,49 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
               )
             ];
           },
-          body: TabBarView(children: [
-            ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-              itemCount: 10,
-              separatorBuilder: (context, index) {
-                return 20.sbH;
-              },
-              itemBuilder: (context, index) {
-                return ChatMessageTile(
-                  name: "Slethware Kazumi Namikazi dominictio",
-                  date: "Today",
-                  time: "06:54 AM",
-                  lastMessage: AppTexts.rentalGreetingText,
-                  profilePicture: AppGraphics.memeoji.png,
-                  onTileTap: () {
-                    goTo(context: context, view: ChatView());
-                  },
-                );
-              },
-            ),
-            ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-              itemCount: 10,
-              separatorBuilder: (context, index) {
-                return 20.sbH;
-              },
-              itemBuilder: (context, index) {
-                return ChatMessageTile(
-                  name: "Slethware Kazumi",
-                  date: "Today",
-                  time: "06:54 AM",
-                  lastMessage: AppTexts.rentalGreetingText,
-                  profilePicture: AppGraphics.memeoji.png,
-                  onTileTap: () {
-                    goTo(context: context, view: ChatView());
-                  },
-                );
-              },
-            ),
-          ]),
+          body: TabBarView(
+            children: [
+              _buildMessageList(allMessages),
+              _buildMessageList(unreadMessages),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildMessageList(List<Map<String, String>> messages) {
+    if (messages.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppGraphics.emptyMessages.png.myImage(),
+          ],
+        ),
+      );
+    }
+
+    return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+      itemCount: messages.length,
+      separatorBuilder: (context, index) {
+        return SizedBox(height: 20.h);
+      },
+      itemBuilder: (context, index) {
+        final message = messages[index];
+        return ChatMessageTile(
+          name: message['name'] ?? '',
+          date: message['date'] ?? '',
+          time: message['time'] ?? '',
+          lastMessage: message['lastMessage'] ?? '',
+          profilePicture: AppGraphics.memeoji.png,
+          onTileTap: () {
+            goTo(context: context, view: ChatView());
+          },
+        );
+      },
     );
   }
 }

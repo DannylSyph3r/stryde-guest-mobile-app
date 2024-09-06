@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_guest_app/features/vehicles/widgets/rental_display_card.dart';
+import 'package:stryde_guest_app/features/vehicles/widgets/airport_vehicle_card.dart';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
@@ -152,16 +152,16 @@ class _AirportTripDetailsViewState
           "Vehicle".txt18(fontW: F.w6),
           20.sbH,
           SizedBox(
-            height: 270.h,
-            width: 210.w,
-            child: RentalDisplayCard(
-                carImagePath: AppGraphics.carPlOne,
-                manufacturerName: "Aston Martin",
-                modelName: "SteppenWolf",
-                reviewStarCount: 3.0,
-                onTileTap: () {},
-                onLikeTap: () {}),
-          ).alignCenterLeft(),
+                  height: 260.h,
+                  width: 190.w,
+                  child: AirportVehicleDisplayCard(
+                      carImagePath: AppGraphics.carPlOne,
+                      vehicleClass: "SUV",
+                      vehicleYear: "2013",
+                      rentalRate: 50000,
+                      reviewStarCount: 3.7,
+                      onTileTap: () {}))
+              .alignCenterLeft(),
           50.sbH
         ],
       ),

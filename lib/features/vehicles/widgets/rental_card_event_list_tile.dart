@@ -93,7 +93,7 @@ class RentalCardEventListTile extends ConsumerWidget {
                   if (subtitleLabel != null) ...[
                     SizedBox(height: 2.h),
                     subtitleLabel!.txt(
-                      size: subtitleFontSize ?? 12.sp,
+                      size: subtitleFontSize ?? 11.sp,
                       fontW: subtitleFontWeight ?? F.w3,
                       color: (contentOpacity ?? false)
                           ? (subtitleFontColor ??

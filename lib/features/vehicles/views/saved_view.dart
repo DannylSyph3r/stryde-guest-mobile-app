@@ -6,7 +6,9 @@ import 'package:stryde_guest_app/core/providers/global_providers.dart';
 import 'package:stryde_guest_app/features/vehicles/models/rental_selection_model.dart';
 import 'package:stryde_guest_app/features/vehicles/views/full_vehicle_rental_details_view.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/rental_display_card.dart';
+import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
+import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/sliver_appbar.dart';
 
@@ -25,74 +27,84 @@ class _SavedViewState extends ConsumerState<SavedView> {
       body: DefaultTabController(
         length: vehicleTypes.length + 1,
         child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverwareAppBar(
-                  appBarToolbarheight: 55.h,
-                  sliverCollapseMode: CollapseMode.parallax,
-                  isPinned: true,
-                  canStretch: false,
-                  isFloating: true,
-                  customizeLeadingWidget: false,
-                  showLeadingIconOrWidget: false,
-                  titleCentered: true,
-                  isTitleAWidget: false,
-                  title: "Saved",
-                  titleFontSize: 20.sp,
-                  titleFontWeight: FontWeight.w100,
-                  sliverBottom: AppBar(
-                    centerTitle: true,
-                    automaticallyImplyLeading: false,
-                    scrolledUnderElevation: 0,
-                    toolbarHeight: 60.h,
-                    title: TabBar(
-                      isScrollable: true,
-                      padding: EdgeInsets.zero,
-                      tabAlignment: TabAlignment.center,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      dividerColor: Colors.transparent,
-                      indicator: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 2,
-                            color: Palette.strydeOrange,
-                          ),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverwareAppBar(
+                appBarToolbarheight: 55.h,
+                sliverCollapseMode: CollapseMode.parallax,
+                isPinned: true,
+                canStretch: false,
+                isFloating: true,
+                customizeLeadingWidget: false,
+                showLeadingIconOrWidget: false,
+                titleCentered: true,
+                isTitleAWidget: false,
+                title: "Saved",
+                titleFontSize: 20.sp,
+                titleFontWeight: FontWeight.w100,
+                sliverBottom: AppBar(
+                  centerTitle: true,
+                  automaticallyImplyLeading: false,
+                  scrolledUnderElevation: 0,
+                  toolbarHeight: 60.h,
+                  title: TabBar(
+                    isScrollable: true,
+                    padding: EdgeInsets.zero,
+                    tabAlignment: TabAlignment.center,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    dividerColor: Colors.transparent,
+                    indicator: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: Palette.strydeOrange,
                         ),
                       ),
-                      labelColor: Palette.strydeOrange,
-                      unselectedLabelColor: Palette.whiteColor,
-                      labelStyle: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.w600),
-                      ),
-                      unselectedLabelStyle: GoogleFonts.montserrat(
-                        textStyle: TextStyle(fontSize: 16.sp),
-                      ),
-                      tabs: [
-                        Tab(text: "All (${rentalSelections.length})"),
-                        ...vehicleTypes.asMap().entries.map((entry) {
-                          String vehicleClass = entry.value;
-                          int vehicleClassCount = rentalSelections
-                              .where((rentalSelection) =>
-                                  rentalSelection.vehicleBodyType ==
-                                  vehicleClass)
-                              .length;
-                          return Tab(
-                            text: "$vehicleClass ($vehicleClassCount)",
-                          );
-                        }),
-                      ],
                     ),
+                    labelColor: Palette.strydeOrange,
+                    unselectedLabelColor: Palette.whiteColor,
+                    labelStyle: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    ),
+                    unselectedLabelStyle: GoogleFonts.montserrat(
+                      textStyle: TextStyle(fontSize: 16.sp),
+                    ),
+                    tabs: [
+                      Tab(text: "All (${rentalSelections.length})"),
+                      ...vehicleTypes.asMap().entries.map((entry) {
+                        String vehicleClass = entry.value;
+                        int vehicleClassCount = rentalSelections
+                            .where((rentalSelection) =>
+                                rentalSelection.vehicleBodyType == vehicleClass)
+                            .length;
+                        return Tab(
+                          text: "$vehicleClass ($vehicleClassCount)",
+                        );
+                      }),
+                    ],
                   ),
-                )
-              ];
-            },
-            body: TabBarView(
-              children: [
-                CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
+                ),
+              )
+            ];
+          },
+          body: TabBarView(
+            children: [
+              CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  if (rentalSelections.isEmpty)
+                    SliverFillRemaining(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppGraphics.emptySaved.png.myImage(),
+                          ],
+                        ),
+                      ),
+                    )
+                  else
                     SliverPadding(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.h, horizontal: 15.w),
@@ -126,20 +138,32 @@ class _SavedViewState extends ConsumerState<SavedView> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                ...vehicleTypes.map((rentals) {
-                  final filteredRentalSelection = rentalSelections
-                      .where((rentalPicks) =>
-                          rentalPicks.vehicleBodyType == rentals)
-                      .toList();
+                ],
+              ),
+              ...vehicleTypes.map((rentals) {
+                final filteredRentalSelection = rentalSelections
+                    .where(
+                        (rentalPicks) => rentalPicks.vehicleBodyType == rentals)
+                    .toList();
 
-                  return CustomScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
+                return CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    if (filteredRentalSelection.isEmpty)
+                      SliverFillRemaining(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AppGraphics.emptySaved.png.myImage(),
+                            ],
+                          ),
+                        ),
+                      )
+                    else
                       SliverPadding(
                         padding: EdgeInsets.symmetric(
-                            vertical: 15.h, horizontal: 15.w),
+                            vertical: 10.h, horizontal: 15.w),
                         sliver: SliverGrid(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -171,11 +195,12 @@ class _SavedViewState extends ConsumerState<SavedView> {
                           ),
                         ),
                       ),
-                    ],
-                  );
-                }),
-              ],
-            )),
+                  ],
+                );
+              }),
+            ],
+          ),
+        ),
       ),
     );
   }

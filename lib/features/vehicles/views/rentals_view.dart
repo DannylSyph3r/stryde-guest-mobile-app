@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stryde_guest_app/features/vehicles/views/full_vehicle_rental_details_view.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/rentals_list.dart';
+import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
@@ -17,9 +18,36 @@ class RentalsView extends ConsumerStatefulWidget {
 }
 
 class _RentalsViewState extends ConsumerState<RentalsView> {
+  // Sample data for active rentals
+  final List<Map<String, String>> activeRentals = [
+    {
+      'brandName': 'Mercedes Benz',
+      'location': 'Lagos',
+      'model': 'GLK',
+      'trim': 'GLK 4L',
+      'rate': '₦250,000 / day',
+    },
+    {
+      'brandName': 'BMW',
+      'location': 'Abuja',
+      'model': 'X5',
+      'trim': 'xDrive40i',
+      'rate': '₦300,000 / day',
+    },
+    {
+      'brandName': 'Audi',
+      'location': 'Port Harcourt',
+      'model': 'Q7',
+      'trim': 'Premium Plus',
+      'rate': '₦280,000 / day',
+    },
+  ];
+
+  // Empty list for rental history
+  final List<Map<String, String>> rentalHistory = [];
+
   @override
   Widget build(BuildContext context) {
-    //final garageListPopulator = ref.watch(garageListProvider);
     return Scaffold(
       body: DefaultTabController(
         length: 2,
@@ -74,11 +102,6 @@ class _RentalsViewState extends ConsumerState<RentalsView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               "Active".txt(size: 14.sp),
-                              // 5.sbW,
-                              // "8".txt(
-                              //     size: 14.sp,
-                              //     color: Palette.strydeOrange,
-                              //     fontW: F.w6),
                             ],
                           ),
                         ),
@@ -90,10 +113,6 @@ class _RentalsViewState extends ConsumerState<RentalsView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               "History".txt(size: 14.sp),
-                              // 5.sbW,
-                              // "5".txt(
-                              //     size: 14.sp,
-                              //     color: Palette.strydeOrange),
                             ],
                           ),
                         ),
@@ -105,41 +124,36 @@ class _RentalsViewState extends ConsumerState<RentalsView> {
             ];
           },
           body: TabBarView(children: [
-            ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: 10.padV,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return RentalList(
-                    vehicleBrandName: "Mercedes Benz",
-                    vehicleLocation: "Lagos",
-                    vehicleModel: "GLK",
-                    vehicleTrim: "GLK 4L",
-                    rentalRate: "₦250,000 / day",
-                    onRentalListTap: () {
-                      goTo(context: context, view: FullVehicleRentalDetailsView());
-                    },
-                  );
-                }),
-            ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: 10.padV,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return RentalList(
-                    vehicleBrandName: "Mercedes Benz",
-                    vehicleLocation: "Lagos",
-                    vehicleModel: "GLK",
-                    vehicleTrim: "GLK 4L",
-                    rentalRate: "₦250,000 / day",
-                    onRentalListTap: () {
-                      goTo(context: context, view: FullVehicleRentalDetailsView());
-                    },
-                  );
-                }),
+            _buildRentalList(activeRentals),
+            _buildRentalList(rentalHistory),
           ]),
         ),
       ),
+    );
+  }
+
+  Widget _buildRentalList(List<Map<String, String>> rentals) {
+    if (rentals.isEmpty) {
+      return Center(child: AppGraphics.emptyRentals.png.myImage());
+    }
+
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      padding: 10.padV,
+      itemCount: rentals.length,
+      itemBuilder: (context, index) {
+        final rental = rentals[index];
+        return RentalList(
+          vehicleBrandName: rental['brandName'] ?? 'Unknown',
+          vehicleLocation: rental['location'] ?? 'Unknown',
+          vehicleModel: rental['model'] ?? 'Unknown',
+          vehicleTrim: rental['trim'] ?? 'Unknown',
+          rentalRate: rental['rate'] ?? 'Unknown',
+          onRentalListTap: () {
+            goTo(context: context, view: FullVehicleRentalDetailsView());
+          },
+        );
+      },
     );
   }
 }

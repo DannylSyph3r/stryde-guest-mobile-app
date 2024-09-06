@@ -17,7 +17,6 @@ import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/custom_modal_bottomsheet.dart';
 import 'package:stryde_guest_app/utils/frosted_glass_box.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
-import 'package:stryde_guest_app/utils/widgets/appbar.dart';
 
 class HomeAirportView extends ConsumerStatefulWidget {
   final ValueNotifier<int> switcherNotifier;
@@ -63,14 +62,9 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
     final isTripStarted = ref.watch(tripStartedNotiferProvider);
     final isTripCompleted = ref.watch(tripCompletedNotifier);
     return Scaffold(
-      appBar: customAppBar(
-          toolbarHeight: 10.h,
-          implyLeading: false,
-          color: Palette.blackColor,
-          context: context),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height - 100.h,
+          height: MediaQuery.of(context).size.height - 60.h,
           child: Stack(
             children: [
               // Map (main content)
@@ -107,259 +101,266 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                       children: [
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 14.5.w, vertical: 14.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              horizontal: 14.5.w, vertical: 0.h),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,                   
                             children: [
-                              Container(
-                                height: 51.h,
-                                padding: 10.0.padA,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          Palette.strydeOrange.withOpacity(0.2),
-                                      spreadRadius: 10,
-                                      blurRadius: 15,
-                                    ),
-                                  ],
-                                ),
-                                child: const Icon(
-                                  PhosphorIconsBold.list,
-                                  color: Palette.strydeOrange,
-                                ).tap(onTap: () {
-                                  goTo(
-                                      context: context,
-                                      view: AirportAccountView());
-                                }),
-                              ),
+                              50.sbH,
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 12.5.h, horizontal: 15.w),
+                                    height: 51.h,
+                                    padding: 10.0.padA,
                                     decoration: BoxDecoration(
-                                      color: widget.switcherNotifier.value == 0
-                                          ? Palette.buttonBG
-                                          : Palette.darkBG,
-                                      border: Border.all(
-                                          color: Palette.buttonBG, width: 1.5),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15.r),
-                                        bottomLeft: Radius.circular(15.r),
-                                      ),
+                                      color: Colors.transparent,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Palette.strydeOrange.withOpacity(0.2),
+                                          spreadRadius: 10,
+                                          blurRadius: 15,
+                                        ),
+                                      ],
                                     ),
-                                    child: Center(
-                                        child: "Rentals".txt14(fontW: F.w6)),
-                                  ).tap(onTap: () {
-                                    widget.switcherNotifier.value = 0;
-                                  }),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 12.5.h, horizontal: 15.w),
-                                    decoration: BoxDecoration(
-                                      color: widget.switcherNotifier.value == 1
-                                          ? Palette.buttonBG
-                                          : Palette.darkBG,
-                                      border: Border.all(
-                                          color: Palette.buttonBG, width: 1.5),
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(15.r),
-                                        bottomRight: Radius.circular(15.r),
-                                      ),
-                                    ),
-                                    child: Center(
-                                        child: "Airport".txt14(fontW: F.w6)),
-                                  ).tap(onTap: () {}),
-                                ],
-                              ),
-                              isTripStarted
-                                  ? "Finish".txt14().tap(onTap: () {
-                                      ref
-                                          .read(tripCompletedNotifier.notifier)
-                                          .state = true;
-                                      showCustomModal(
-                                        context,
-                                        onDismissed: () {
+                                    child: const Icon(
+                                      PhosphorIconsBold.list,
+                                      color: Palette.strydeOrange,
+                                    ).tap(onTap: () {
+                                      goTo(
+                                          context: context,
+                                          view: AirportAccountView());
+                                    }),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 12.5.h, horizontal: 15.w),
+                                        decoration: BoxDecoration(
+                                          color: widget.switcherNotifier.value == 0
+                                              ? Palette.buttonBG
+                                              : Palette.darkBG,
+                                          border: Border.all(
+                                              color: Palette.buttonBG, width: 1.5),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15.r),
+                                            bottomLeft: Radius.circular(15.r),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child: "Rentals".txt14(fontW: F.w6)),
+                                      ).tap(onTap: () {
+                                        widget.switcherNotifier.value = 0;
+                                      }),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 12.5.h, horizontal: 15.w),
+                                        decoration: BoxDecoration(
+                                          color: widget.switcherNotifier.value == 1
+                                              ? Palette.buttonBG
+                                              : Palette.darkBG,
+                                          border: Border.all(
+                                              color: Palette.buttonBG, width: 1.5),
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(15.r),
+                                            bottomRight: Radius.circular(15.r),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child: "Airport".txt14(fontW: F.w6)),
+                                      ).tap(onTap: () {}),
+                                    ],
+                                  ),
+                                  isTripStarted
+                                      ? "Finish".txt14().tap(onTap: () {
                                           ref
-                                              .read(tripCompletedNotifier
-                                                  .notifier)
-                                              .state = false;
-                                          ref
-                                              .read(tripStartedNotiferProvider
-                                                  .notifier)
-                                              .state = false;
-                                          ref
-                                              .read(
-                                                  airportVehicleSelectionProvider
+                                              .read(tripCompletedNotifier.notifier)
+                                              .state = true;
+                                          showCustomModal(
+                                            context,
+                                            onDismissed: () {
+                                              ref
+                                                  .read(tripCompletedNotifier
                                                       .notifier)
-                                              .state = false;
-                                          ref.invalidate(
-                                              startingLocationProvider);
-                                          ref.invalidate(
-                                              desinationLocationProvider);
-                                        },
-                                        modalHeight: 270.h,
-                                        child: Column(
-                                          children: [
-                                            20.sbH,
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
+                                                  .state = false;
+                                              ref
+                                                  .read(tripStartedNotiferProvider
+                                                      .notifier)
+                                                  .state = false;
+                                              ref
+                                                  .read(
+                                                      airportVehicleSelectionProvider
+                                                          .notifier)
+                                                  .state = false;
+                                              ref.invalidate(
+                                                  startingLocationProvider);
+                                              ref.invalidate(
+                                                  desinationLocationProvider);
+                                            },
+                                            modalHeight: 270.h,
+                                            child: Column(
                                               children: [
-                                                const Icon(
-                                                  PhosphorIconsFill.trophy,
-                                                  color: Palette.strydeOrange,
+                                                20.sbH,
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    const Icon(
+                                                      PhosphorIconsFill.trophy,
+                                                      color: Palette.strydeOrange,
+                                                    ),
+                                                    10.sbW,
+                                                    "Trip Completed"
+                                                        .txt16(fontW: F.w6),
+                                                  ],
                                                 ),
-                                                10.sbW,
-                                                "Trip Completed"
-                                                    .txt16(fontW: F.w6),
-                                              ],
-                                            ),
-                                            10.sbH,
-                                            Container(
-                                              padding: 15.0.padA,
-                                              height: 100.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    // First Row: Avatar and Text Details
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          height: 60.h,
-                                                          width: 60.h,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Palette
-                                                                .buttonBG
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            boxShadow: [
-                                                              BoxShadow(
+                                                10.sbH,
+                                                Container(
+                                                  padding: 15.0.padA,
+                                                  height: 100.h,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        // First Row: Avatar and Text Details
+                                                        child: Row(
+                                                          children: [
+                                                            Container(
+                                                              height: 60.h,
+                                                              width: 60.h,
+                                                              decoration:
+                                                                  BoxDecoration(
                                                                 color: Palette
-                                                                    .strydeOrange
+                                                                    .buttonBG
                                                                     .withOpacity(
-                                                                        0.2),
-                                                                spreadRadius:
-                                                                    10,
-                                                                blurRadius: 15,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          child: Center(
-                                                            child: AppGraphics
-                                                                .memeoji.png
-                                                                .myImage(
-                                                                    fit: BoxFit
-                                                                        .contain),
-                                                          ),
-                                                        ),
-                                                        15.sbW,
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              "Akinola Daniel Eri-ife"
-                                                                  .txt16(
-                                                                fontW: F.w6,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis, // Handle overflow
-                                                              ),
-                                                              3.sbH,
-                                                              Row(
-                                                                children: [
-                                                                  "4.5".txt14(
-                                                                      fontW:
-                                                                          F.w4),
-                                                                  5.sbW,
-                                                                  Icon(
-                                                                    PhosphorIconsFill
-                                                                        .star,
-                                                                    size: 15.h,
+                                                                        0.5),
+                                                                shape:
+                                                                    BoxShape.circle,
+                                                                boxShadow: [
+                                                                  BoxShadow(
                                                                     color: Palette
-                                                                        .strydeOrange,
+                                                                        .strydeOrange
+                                                                        .withOpacity(
+                                                                            0.2),
+                                                                    spreadRadius:
+                                                                        10,
+                                                                    blurRadius: 15,
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ],
-                                                          ),
+                                                              child: Center(
+                                                                child: AppGraphics
+                                                                    .memeoji.png
+                                                                    .myImage(
+                                                                        fit: BoxFit
+                                                                            .contain),
+                                                              ),
+                                                            ),
+                                                            15.sbW,
+                                                            Expanded(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  "Akinola Daniel Eri-ife"
+                                                                      .txt16(
+                                                                    fontW: F.w6,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis, // Handle overflow
+                                                                  ),
+                                                                  3.sbH,
+                                                                  Row(
+                                                                    children: [
+                                                                      "4.5".txt14(
+                                                                          fontW:
+                                                                              F.w4),
+                                                                      5.sbW,
+                                                                      Icon(
+                                                                        PhosphorIconsFill
+                                                                            .star,
+                                                                        size: 15.h,
+                                                                        color: Palette
+                                                                            .strydeOrange,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  20.sbW,
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      "Distance".txt14(),
-                                                      3.sbH,
-                                                      "20.5km"
-                                                          .txt18(fontW: F.w6),
+                                                      ),
+                                                      20.sbW,
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.end,
+                                                        children: [
+                                                          "Distance".txt14(),
+                                                          3.sbH,
+                                                          "20.5km"
+                                                              .txt18(fontW: F.w6),
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                10.sbH,
+                                                RatingBar.builder(
+                                                  itemSize: 35.h,
+                                                  initialRating: 0,
+                                                  minRating: 0,
+                                                  direction: Axis.horizontal,
+                                                  allowHalfRating: true,
+                                                  itemCount: 5,
+                                                  itemPadding: 1.padH,
+                                                  unratedColor:
+                                                      Colors.grey.withOpacity(0.8),
+                                                  itemBuilder: (context, _) => Icon(
+                                                    PhosphorIconsFill.star,
+                                                    color: Palette.strydeOrange,
+                                                    size: 35.h,
+                                                  ),
+                                                  onRatingUpdate: (rating) {
+                                                    rating.log();
+                                                  },
+                                                ),
+                                              ],
                                             ),
-                                            10.sbH,
-                                            RatingBar.builder(
-                                              itemSize: 35.h,
-                                              initialRating: 0,
-                                              minRating: 0,
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: true,
-                                              itemCount: 5,
-                                              itemPadding: 1.padH,
-                                              unratedColor:
-                                                  Colors.grey.withOpacity(0.8),
-                                              itemBuilder: (context, _) => Icon(
-                                                PhosphorIconsFill.star,
-                                                color: Palette.strydeOrange,
-                                                size: 35.h,
-                                              ),
-                                              onRatingUpdate: (rating) {
-                                                rating.log();
-                                              },
+                                          );
+                                        })
+                                      : Opacity(
+                                          opacity: 0,
+                                          child: Container(
+                                            height: 40.h,
+                                            width: 40.h,
+                                            decoration: BoxDecoration(
+                                              color: Palette.greyColor
+                                                  .withOpacity(0.3),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.r)),
                                             ),
-                                          ],
+                                            child: const Icon(
+                                              PhosphorIconsRegular.bellSimple,
+                                              color: Palette.whiteColor,
+                                            ),
+                                          ).tap(onTap: () {}),
                                         ),
-                                      );
-                                    })
-                                  : Opacity(
-                                      opacity: 0,
-                                      child: Container(
-                                        height: 40.h,
-                                        width: 40.h,
-                                        decoration: BoxDecoration(
-                                          color: Palette.greyColor
-                                              .withOpacity(0.3),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8.r)),
-                                        ),
-                                        child: const Icon(
-                                          PhosphorIconsRegular.bellSimple,
-                                          color: Palette.whiteColor,
-                                        ),
-                                      ).tap(onTap: () {}),
-                                    ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
+                        15.sbH,
                         // Top bar
                         ValueListenableBuilder<bool>(
                           valueListenable: _isContainerVisible,

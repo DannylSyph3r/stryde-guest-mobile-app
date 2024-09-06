@@ -1,5 +1,4 @@
 abstract class AppGraphics {
-
   //! Icon Assets
   static const String googleIcon = 'google';
   static const String appleIcon = 'apple';
@@ -21,6 +20,9 @@ abstract class AppGraphics {
   static const darkModePanel = 'dark_panel';
   static const adAvatar = 'ad_avatar';
   static const mapPL = 'map';
+  static const emptyRentals = 'rentals_empty';
+  static const emptySaved = 'saved_empty';
+  static const emptyMessages = 'messages_empty';
 
   //! NavBar Assets
   static const String homeIcon = 'home';

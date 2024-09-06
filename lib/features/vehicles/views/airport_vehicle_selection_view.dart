@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_guest_app/core/providers/global_providers.dart';
-import 'package:stryde_guest_app/features/vehicles/models/rental_selection_model.dart';
+import 'package:stryde_guest_app/features/vehicles/models/airport_vehicle_selection.dart';
 import 'package:stryde_guest_app/features/vehicles/providers/vehicle_providers.dart';
-import 'package:stryde_guest_app/features/vehicles/widgets/rental_display_card.dart';
+import 'package:stryde_guest_app/features/vehicles/widgets/airport_vehicle_card.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_constants.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
@@ -46,7 +46,7 @@ class _AirportVehicleSelectionViewState
 
   @override
   Widget build(BuildContext context) {
-    final vehicleTypes = ref.watch(vehicleTypeSelectionProvider);
+    final vehicleTypes = ref.watch(airportVehicleTypeSelectionProvider);
 
     return ValueListenableBuilder<String>(
       valueListenable: _currentVehicleClassNotifier,
@@ -144,12 +144,12 @@ class _AirportVehicleSelectionViewState
                           textStyle: TextStyle(fontSize: 16.sp),
                         ),
                         tabs: [
-                          Tab(text: "All (${rentalSelections.length})"),
+                          Tab(text: "All (${airportVehicleSelections.length})"),
                           ...vehicleTypes.asMap().entries.map((entry) {
                             String vehicleClass = entry.value;
-                            int vehicleClassCount = rentalSelections
-                                .where((rentalSelection) =>
-                                    rentalSelection.vehicleBodyType ==
+                            int vehicleClassCount = airportVehicleSelections
+                                .where((airportVehicleSelections) =>
+                                    airportVehicleSelections.vehicleClass ==
                                     vehicleClass)
                                 .length;
                             return Tab(
@@ -180,15 +180,17 @@ class _AirportVehicleSelectionViewState
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
-                              RentalSelection rentalCardDisplay =
-                                  rentalSelections[index];
-                              return RentalDisplayCard(
-                                carImagePath: rentalCardDisplay.carImagePath,
-                                manufacturerName:
-                                    rentalCardDisplay.manufacturerName,
-                                modelName: rentalCardDisplay.modelName,
+                              AirportVehicleSelection airportVehicleDisplay =
+                                  airportVehicleSelections[index];
+                              return AirportVehicleDisplayCard(
+                                carImagePath:
+                                    airportVehicleDisplay.carImagePath,
+                                vehicleClass:
+                                    airportVehicleDisplay.vehicleClass,
+                                vehicleYear: airportVehicleDisplay.vehicleYear,
+                                rentalRate: airportVehicleDisplay.rentalRate,
                                 reviewStarCount:
-                                    rentalCardDisplay.reviewCountAverage,
+                                    airportVehicleDisplay.reviewCountAverage,
                                 onTileTap: () {
                                   ref
                                       .read(airportVehicleSelectionProvider
@@ -196,19 +198,18 @@ class _AirportVehicleSelectionViewState
                                       .state = true;
                                   goBack(context);
                                 },
-                                onLikeTap: () {},
                               );
                             },
-                            childCount: rentalSelections.length,
+                            childCount: airportVehicleSelections.length,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  ...vehicleTypes.map((rentals) {
-                    final filteredRentalSelection = rentalSelections
-                        .where((rentalPicks) =>
-                            rentalPicks.vehicleBodyType == rentals)
+                  ...vehicleTypes.map((airport) {
+                    final filteredAirportSelection = airportVehicleSelections
+                        .where((airportPicks) =>
+                            airportPicks.vehicleClass == airport)
                         .toList();
 
                     return CustomScrollView(
@@ -227,26 +228,27 @@ class _AirportVehicleSelectionViewState
                             ),
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
-                                RentalSelection rentalCardDisplay =
-                                    filteredRentalSelection[index];
-                                return RentalDisplayCard(
-                                  carImagePath: rentalCardDisplay.carImagePath,
-                                  manufacturerName:
-                                      rentalCardDisplay.manufacturerName,
-                                  modelName: rentalCardDisplay.modelName,
-                                  reviewStarCount:
-                                      rentalCardDisplay.reviewCountAverage,
-                                  onTileTap: () {
-                                    ref
-                                        .read(airportVehicleSelectionProvider
-                                            .notifier)
-                                        .state = true;
-                                    goBack(context);
-                                  },
-                                  onLikeTap: () {},
-                                );
+                                AirportVehicleSelection airportVehicleDisplay =
+                                    filteredAirportSelection[index];
+                                return AirportVehicleDisplayCard(
+                                carImagePath:
+                                    airportVehicleDisplay.carImagePath,
+                                vehicleClass:
+                                    airportVehicleDisplay.vehicleClass,
+                                vehicleYear: airportVehicleDisplay.vehicleYear,
+                                rentalRate: airportVehicleDisplay.rentalRate,
+                                reviewStarCount:
+                                    airportVehicleDisplay.reviewCountAverage,
+                                onTileTap: () {
+                                  ref
+                                      .read(airportVehicleSelectionProvider
+                                          .notifier)
+                                      .state = true;
+                                  goBack(context);
+                                },
+                              );
                               },
-                              childCount: filteredRentalSelection.length,
+                              childCount: filteredAirportSelection.length,
                             ),
                           ),
                         ),
