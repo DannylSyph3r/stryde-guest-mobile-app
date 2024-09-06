@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ import 'package:stryde_guest_app/utils/app_constants.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/sliver_appbar.dart';
+import 'package:video_player/video_player.dart';
 
 class HomeRentalsView extends ConsumerStatefulWidget {
   final ValueNotifier<int> switcherNotifier;
@@ -29,10 +31,30 @@ class HomeRentalsView extends ConsumerStatefulWidget {
 
 class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
   final TextEditingController _searchFieldController = TextEditingController();
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  late VideoPlayerController _videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    _videoController =
+        VideoPlayerController.asset('lib/assets/images/video_bg.mp4')
+          ..initialize().then((_) {
+            setState(() {
+              _videoController.play();
+              _videoController.setLooping(true);
+            });
+          }).catchError((error) {
+            // Handle video loading error
+            'Error loading video: $error'.log();
+          });
+  }
 
   @override
   void dispose() {
     _searchFieldController.dispose();
+    _currentIndexNotifier.dispose();
+    _videoController.dispose(); // Dispose of the video controller
     super.dispose();
   }
 
@@ -57,7 +79,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                 titleWidget: const SizedBox.shrink(),
                 titleFontSize: 20.sp,
                 titleFontWeight: FontWeight.w100,
-                expandedHeight: height(context) * 0.53,
+                expandedHeight: height(context) * 0.545,
                 expandedSliverSpaceBackground: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -181,18 +203,59 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                               context: context, view: VehicleSearchView());
                         })),
                     20.sbH,
-                    SizedBox(
-                      height: 180.h,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        padding: 7.5.padH,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
+                    FlutterCarousel(
+                      items: List.generate(10, (index) {
+                        if (index % 2 == 0) {
+                          // Even index, show video
                           return Padding(
-                            padding: 7.5.padH,
+                            padding: 20.padH,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.r),
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 190.h,
+                                child: _videoController.value.isInitialized
+                                    ? FittedBox(
+                                        fit: BoxFit.cover,
+                                        child: SizedBox(
+                                          width:
+                                              _videoController.value.size.width,
+                                          height: _videoController
+                                              .value.size.height,
+                                          child: VideoPlayer(_videoController),
+                                        ),
+                                      )
+                                    : const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                              ).tap(onTap: () {
+                                if (_videoController.value.isPlaying) {
+                                  _videoController.pause();
+                                } else {
+                                  _videoController.play();
+                                }
+                              }),
+                            ),
+                          );
+                        } else {
+                          // Odd index, show ad
+                          return Padding(
+                            padding: 20.padH,
                             child: const AdDisplayCard(),
                           );
+                        }
+                      }),
+                      options: CarouselOptions(
+                        physics: const NeverScrollableScrollPhysics(),
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 4),
+                        viewportFraction: 1.0,
+                        initialPage: 0,
+                        showIndicator: false,
+                        height: 190.h,
+                        onPageChanged:
+                            (int index, CarouselPageChangedReason reason) {
+                          _currentIndexNotifier.value = index;
                         },
                       ),
                     ),
@@ -237,10 +300,6 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                       const Tab(text: "All"),
                       ...vehicleTypes.asMap().entries.map((entry) {
                         String vehicleClass = entry.value;
-                        // int vehicleClassCount = rentalSelections
-                        //     .where((rentalSelection) =>
-                        //         rentalSelection.vehicleBodyType == vehicleClass)
-                        //     .length;
                         return Tab(
                           text: vehicleClass,
                         );
