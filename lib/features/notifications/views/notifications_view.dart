@@ -48,9 +48,6 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
         notificationDate: notificationDate,
         notificationTime: notificationTime,
         fromName: "",
-        viewDetailsTap: () {
-          // goTo(context: context, view: CalendarEventDetailsView());
-        },
       ));
     }
 
@@ -103,7 +100,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                     indicator: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          width: 2,
+                          width: 4,
                           color: Palette.strydeOrange,
                         ),
                       ),

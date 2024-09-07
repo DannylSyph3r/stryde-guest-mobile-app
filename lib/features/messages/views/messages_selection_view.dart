@@ -72,7 +72,7 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
                     indicator: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          width: 2,
+                          width: 4,
                           color: Palette.strydeOrange,
                         ),
                       ),

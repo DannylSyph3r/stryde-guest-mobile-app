@@ -20,18 +20,17 @@ class NotificationDisplayTile extends ConsumerStatefulWidget {
   final String notificationDate; // Date for when notification comes in
   final String notificationTime; // Time for when notification comes in
   final String? fromName; // Optional name for rental request
-  final VoidCallback viewDetailsTap;
 
-  const NotificationDisplayTile(
-      {super.key,
-      required this.notificationType,
-      required this.vehicleName,
-      required this.scheduledDate,
-      required this.scheduledTime,
-      required this.notificationDate,
-      required this.notificationTime,
-      this.fromName,
-      required this.viewDetailsTap});
+  const NotificationDisplayTile({
+    super.key,
+    required this.notificationType,
+    required this.vehicleName,
+    required this.scheduledDate,
+    required this.scheduledTime,
+    required this.notificationDate,
+    required this.notificationTime,
+    this.fromName,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -121,7 +120,7 @@ class _NotificationDisplayTileState
                   ),
                 ),
                 TextSpan(
-                  text:  "${widget.scheduledDate} at ${widget.scheduledTime}",
+                  text: "${widget.scheduledDate} at ${widget.scheduledTime}",
                   style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       fontSize: 12.sp,
@@ -136,14 +135,6 @@ class _NotificationDisplayTileState
             rowPadding: 0.padH,
             leading: "${widget.notificationDate}, ${widget.notificationTime}"
                 .txt(size: 13.sp),
-            trailing: GestureDetector(
-              onTap: widget.viewDetailsTap, // Call the callback here
-              child: "View Details".txt14(
-                textAlign: TextAlign.right,
-                color: Palette.strydeOrange,
-                fontW: F.w6,
-              ),
-            ),
           ),
         ],
       ),

@@ -56,7 +56,7 @@ class _SavedViewState extends ConsumerState<SavedView> {
                     indicator: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          width: 2,
+                          width: 4,
                           color: Palette.strydeOrange,
                         ),
                       ),

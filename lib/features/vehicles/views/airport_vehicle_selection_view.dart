@@ -129,7 +129,7 @@ class _AirportVehicleSelectionViewState
                         indicator: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              width: 2,
+                              width: 4,
                               color: Palette.strydeOrange,
                             ),
                           ),
@@ -144,7 +144,7 @@ class _AirportVehicleSelectionViewState
                           textStyle: TextStyle(fontSize: 16.sp),
                         ),
                         tabs: [
-                          Tab(text: "All (${airportVehicleSelections.length})"),
+                          const Tab(text: "All"),
                           ...vehicleTypes.asMap().entries.map((entry) {
                             String vehicleClass = entry.value;
                             int vehicleClassCount = airportVehicleSelections
@@ -153,7 +153,7 @@ class _AirportVehicleSelectionViewState
                                     vehicleClass)
                                 .length;
                             return Tab(
-                              text: "$vehicleClass ($vehicleClassCount)",
+                              text: "$vehicleClass",
                             );
                           }),
                         ],

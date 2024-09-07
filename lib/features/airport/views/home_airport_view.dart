@@ -119,8 +119,8 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                         BoxShadow(
                                           color:
                                               Palette.strydeOrange.withOpacity(0.2),
-                                          spreadRadius: 10,
-                                          blurRadius: 15,
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
                                         ),
                                       ],
                                     ),
@@ -249,7 +249,7 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                                                             0.2),
                                                                     spreadRadius:
                                                                         10,
-                                                                    blurRadius: 15,
+                                                                    blurRadius: 2,
                                                                   ),
                                                                 ],
                                                               ),
@@ -615,8 +615,8 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                             BoxShadow(
                                               color: Palette.strydeOrange
                                                   .withOpacity(0.2),
-                                              spreadRadius: 10,
-                                              blurRadius: 15,
+                                              spreadRadius: 2,
+                                              blurRadius: 2,
                                             ),
                                           ],
                                         ),
@@ -695,12 +695,6 @@ class _HomeAirportViewState extends ConsumerState<HomeAirportView> {
                                       }
                                     }),
                                     if (!isTripStarted) ...[
-                                      15.sbW,
-                                      Icon(
-                                        PhosphorIconsFill.steeringWheel,
-                                        color: Palette.whiteColor,
-                                        size: 30.h,
-                                      ),
                                       15.sbW,
                                       Icon(
                                         PhosphorIconsFill.caretCircleRight,

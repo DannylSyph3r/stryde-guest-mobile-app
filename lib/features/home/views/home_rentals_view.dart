@@ -97,8 +97,8 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                               boxShadow: [
                                 BoxShadow(
                                   color: Palette.strydeOrange.withOpacity(0.2),
-                                  spreadRadius: 10,
-                                  blurRadius: 15,
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
                                 ),
                               ],
                             ),
@@ -292,7 +292,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                     indicator: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          width: 2,
+                          width: 4,
                           color: Palette.strydeOrange,
                         ),
                       ),
