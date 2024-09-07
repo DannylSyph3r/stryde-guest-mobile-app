@@ -107,6 +107,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                                   .myImage(fit: BoxFit.contain),
                             ),
                           ).tap(onTap: () {
+                            _videoController.pause();
                             goTo(context: context, view: UserAccountView());
                           }),
                           Row(
@@ -164,6 +165,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                               color: Palette.whiteColor,
                             ),
                           ).tap(onTap: () {
+                            _videoController.pause();
                             goTo(context: context, view: NotificationsView());
                           }),
                         ],
@@ -199,6 +201,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                             ),
                           ),
                         ).gestureTap(onTap: () {
+                          _videoController.pause();
                           goToUnanimated(
                               context: context, view: VehicleSearchView());
                         })),
@@ -344,6 +347,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                             reviewStarCount:
                                 rentalCardDisplay.reviewCountAverage,
                             onTileTap: () {
+                              _videoController.pause();
                               goTo(
                                   context: context,
                                   view: FullVehicleRentalDetailsView());
@@ -388,6 +392,7 @@ class _HomeRentalsViewState extends ConsumerState<HomeRentalsView> {
                               reviewStarCount:
                                   rentalCardDisplay.reviewCountAverage,
                               onTileTap: () {
+                                _videoController.pause();
                                 goTo(
                                     context: context,
                                     view: FullVehicleRentalDetailsView());
