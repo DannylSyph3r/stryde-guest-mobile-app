@@ -159,7 +159,7 @@ class _AirportTripDetailsViewState
                       vehicleClass: "SUV",
                       vehicleYear: "2013",
                       rentalRate: 50000,
-                      reviewStarCount: 3.7,
+                      seatCount: 4,
                       onTileTap: () {}))
               .alignCenterLeft(),
           50.sbH

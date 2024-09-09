@@ -39,7 +39,7 @@ class SelectionCalendar extends ConsumerWidget {
         // Calculate the number of days between pickup and selected date, inclusive
         final daysDifference = date.difference(pickupDate).inDays + 1;
 
-        if (daysDifference <= 3) {
+        if (daysDifference <= 15) {
           ref.read(dropoffDateProvider.notifier).state = date;
         } else {
           // Reset dates if the selection exceeds 3 days

@@ -152,6 +152,8 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppGraphics.emptyMessages.png.myImage(),
+            10.sbH,
+            "No chats yet".txt14()
           ],
         ),
       );

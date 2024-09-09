@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:stryde_guest_app/features/calendar/views/calendar_view.dart';
 import 'package:stryde_guest_app/features/reviews/widgets/review_card.dart';
+import 'package:stryde_guest_app/features/vehicles/widgets/alternate_rental_display_card.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/vehicle_specs_tab.dart';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/shared/app_texts.dart';
@@ -17,7 +17,9 @@ import 'package:stryde_guest_app/utils/widgets/appbar.dart';
 import 'package:stryde_guest_app/utils/widgets/row_railer.dart';
 
 class FullVehicleRentalDetailsView extends ConsumerStatefulWidget {
-  const FullVehicleRentalDetailsView({super.key});
+  final Object vehicleViewHeroTag;
+  const FullVehicleRentalDetailsView(
+      {required this.vehicleViewHeroTag, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -26,11 +28,15 @@ class FullVehicleRentalDetailsView extends ConsumerStatefulWidget {
 
 class _FullVehicleRentalDetailsViewState
     extends ConsumerState<FullVehicleRentalDetailsView> {
-  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentImageCarouselIndexNotifier =
+      ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentReviewsCarouselIndexNotifier =
+      ValueNotifier<int>(0);
 
   @override
   void dispose() {
-    _currentIndexNotifier.dispose();
+    _currentImageCarouselIndexNotifier.dispose();
+    _currentReviewsCarouselIndexNotifier.dispose();
     super.dispose();
   }
 
@@ -105,26 +111,31 @@ class _FullVehicleRentalDetailsViewState
                 borderRadius: BorderRadius.circular(18.r),
                 child: Stack(
                   children: [
-                    FlutterCarousel(
-                      items: List.generate(
-                        4,
-                        (index) => AppGraphics.carPlOne.png.myImage(
-                          fit: BoxFit.cover,
-                          height: 230.h,
-                          width: double.infinity,
+                    Hero(
+                       tag: widget.vehicleViewHeroTag,
+                      child: Material(
+                        child: FlutterCarousel(
+                          items: List.generate(
+                            4,
+                            (index) => AppGraphics.carPlOne.png.myImage(
+                              fit: BoxFit.cover,
+                              height: 230.h,
+                              width: double.infinity,
+                            ),
+                          ),
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 4),
+                            viewportFraction: 1.0,
+                            initialPage: 2,
+                            showIndicator: false,
+                            height: 230.h,
+                            onPageChanged:
+                                (int index, CarouselPageChangedReason reason) {
+                              _currentImageCarouselIndexNotifier.value = index;
+                            },
+                          ),
                         ),
-                      ),
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 4),
-                        viewportFraction: 1.0,
-                        initialPage: 2,
-                        showIndicator: false,
-                        height: 230.h,
-                        onPageChanged:
-                            (int index, CarouselPageChangedReason reason) {
-                          _currentIndexNotifier.value = index;
-                        },
                       ),
                     ),
                     Positioned(
@@ -133,7 +144,8 @@ class _FullVehicleRentalDetailsViewState
                       right: 0,
                       child: Center(
                         child: ValueListenableBuilder<int>(
-                          valueListenable: _currentIndexNotifier,
+                          valueListenable:
+                              _currentImageCarouselIndexNotifier,
                           builder: (context, currentIndex, _) {
                             return SmoothPageIndicator(
                               controller:
@@ -149,7 +161,8 @@ class _FullVehicleRentalDetailsViewState
                                 dotDecoration: DotDecoration(
                                   width: 8.w,
                                   height: 8.h,
-                                  color: Palette.whiteColor.withOpacity(0.5),
+                                  color:
+                                      Palette.whiteColor.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(5.r),
                                 ),
                                 spacing: 5.w,
@@ -163,52 +176,95 @@ class _FullVehicleRentalDetailsViewState
                 ),
               ),
             ),
-            20.sbH,
-            RowRailer(
-                rowPadding: 15.padH,
-                leading: Row(
-                  children: [
-                    Icon(
-                      PhosphorIconsFill.mapPin,
-                      color: Palette.strydeOrange,
-                      size: 18.h,
-                    ),
-                    5.sbW,
-                    "Abuja"
-                        .txt14(
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left)
-                        .alignCenterLeft(),
-                  ],
-                ),
-                trailing: const SizedBox.shrink()),
-            10.sbH,
+            // RowRailer(
+            //     rowPadding: 15.padH,
+            //     leading: Row(
+            //       children: [
+            //         Icon(
+            //           PhosphorIconsFill.mapPin,
+            //           color: Palette.strydeOrange,
+            //           size: 18.h,
+            //         ),
+            //         5.sbW,
+            //         "Abuja"
+            //             .txt14(
+            //                 overflow: TextOverflow.ellipsis,
+            //                 textAlign: TextAlign.left)
+            //             .alignCenterLeft(),
+            //       ],
+            //     ),
+            //     trailing: const SizedBox.shrink()),
+            // 10.sbH,
+            // RowRailer(
+            //   rowPadding: 15.padH,
+            //   leading: Row(children: [
+            //     RatingBar.builder(
+            //       itemSize: 14.w,
+            //       initialRating: 3.5,
+            //       minRating: 1,
+            //       direction: Axis.horizontal,
+            //       allowHalfRating: true,
+            //       itemCount: 5,
+            //       itemPadding: 1.padH,
+            //       unratedColor: Colors.grey.withOpacity(0.8),
+            //       itemBuilder: (context, _) => Icon(
+            //         PhosphorIconsFill.star,
+            //         color: Palette.strydeOrange,
+            //         size: 14.sp,
+            //       ),
+            //       onRatingUpdate: (rating) {
+            //         rating.log();
+            //       },
+            //     ),
+            //     5.sbW,
+            //     "(100)".txt14(),
+            //   ]),
+            //   trailing:
+            //       "SNK-123XZ".txt14(fontW: F.w6, color: Palette.whiteColor),
+            // ),
+            30.sbH,
             RowRailer(
               rowPadding: 15.padH,
-              leading: Row(children: [
-                RatingBar.builder(
-                  itemSize: 14.w,
-                  initialRating: 3.5,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: 1.padH,
-                  unratedColor: Colors.grey.withOpacity(0.8),
-                  itemBuilder: (context, _) => Icon(
-                    PhosphorIconsFill.star,
-                    color: Palette.strydeOrange,
-                    size: 14.sp,
+              leading: Row(
+                children: [
+                  Container(
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: Palette.buttonBG.withOpacity(0.5),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.strydeOrange.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                        child: AppGraphics.memeoji.png
+                            .myImage(fit: BoxFit.contain)),
                   ),
-                  onRatingUpdate: (rating) {
-                    rating.log();
-                  },
-                ),
-                5.sbW,
-                "(100)".txt14(),
-              ]),
-              trailing:
-                  "SNK-123XZ".txt14(fontW: F.w6, color: Palette.whiteColor),
+                  15.sbW,
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Container(
+                        child: "Miyuzaki Amane"
+                            .txt16(
+                                textAlign: TextAlign.left,
+                                fontW: F.w6,
+                                overflow: TextOverflow.ellipsis)
+                            .alignCenterLeft(),
+                      ),
+                    ],
+                  ))
+                ],
+              ),
+              trailing: Icon(
+                PhosphorIconsFill.envelope,
+                size: 30.h,
+                color: Palette.whiteColor,
+              ),
             ),
             30.sbH,
             Padding(
@@ -217,12 +273,12 @@ class _FullVehicleRentalDetailsViewState
                 children: [
                   "Specs & Features".txt18(fontW: F.w6),
                   15.sbW,
-                  Expanded(
-                    child: Container(
-                      height: 1.h,
-                      color: Palette.whiteColor,
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     height: 1.h,
+                  //     color: Palette.whiteColor,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -272,12 +328,12 @@ class _FullVehicleRentalDetailsViewState
                 children: [
                   "Description".txt18(fontW: F.w6),
                   15.sbW,
-                  Expanded(
-                    child: Container(
-                      height: 1.h,
-                      color: Palette.whiteColor,
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     height: 1.h,
+                  //     color: Palette.whiteColor,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -306,88 +362,81 @@ class _FullVehicleRentalDetailsViewState
             ),
 
             30.sbH,
+            RowRailer(
+                rowPadding: 15.padH,
+                leading: "Rating & Reviews".txt18(
+                  fontW: F.w6,
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    "4.5".txt14(fontW: F.w6),
+                    5.sbW,
+                    Icon(
+                      PhosphorIconsFill.star,
+                      size: 20.h,
+                      color: Palette.strydeOrange,
+                    ),
+                    5.sbW,
+                    "(256)".txt14()
+                  ],
+                )),
+            20.sbH,
+            Padding(
+              padding: 5.padH,
+              child: FlutterCarousel(
+                items: List.generate(10, (index) => const ReviewCard()),
+                options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 4),
+                  viewportFraction: 1.0,
+                  initialPage: 2,
+                  showIndicator: false,
+                  height: 230.h,
+                  onPageChanged: (int index, CarouselPageChangedReason reason) {
+                    _currentReviewsCarouselIndexNotifier.value = index;
+                  },
+                ),
+              ),
+            ),
+            30.sbH,
             Padding(
               padding: 15.padH,
               child: Row(
                 children: [
-                  "Host".txt18(fontW: F.w6),
+                  "You may also like".txt18(fontW: F.w6),
                   15.sbW,
-                  Expanded(
-                    child: Container(
-                      height: 1.h,
-                      color: Palette.whiteColor,
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     height: 1.h,
+                  //     color: Palette.whiteColor,
+                  //   ),
+                  // ),
                 ],
-              ),
-            ),
-            20.sbH,
-            RowRailer(
-              rowPadding: 15.padH,
-              leading: Row(
-                children: [
-                  Container(
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      color: Palette.buttonBG.withOpacity(0.5),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Palette.strydeOrange.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                        child: AppGraphics.memeoji.png
-                            .myImage(fit: BoxFit.contain)),
-                  ),
-                  15.sbW,
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Container(
-                        child: "Akinola Daniel Eri-ife"
-                            .txt16(
-                                textAlign: TextAlign.left,
-                                fontW: F.w6,
-                                overflow: TextOverflow.ellipsis)
-                            .alignCenterLeft(),
-                      ),
-                      3.sbH,
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          "4.5".txt14(textAlign: TextAlign.left, fontW: F.w4),
-                          5.sbW,
-                          Icon(
-                            PhosphorIconsFill.star,
-                            size: 15.h,
-                            color: Palette.strydeOrange,
-                          )
-                        ],
-                      ).alignCenterLeft(),
-                    ],
-                  ))
-                ],
-              ),
-              trailing: Icon(
-                PhosphorIconsFill.envelope,
-                size: 30.h,
-                color: Palette.whiteColor,
               ),
             ),
             20.sbH,
             SizedBox(
-              height: 260.h,
+              height: 230.h,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                padding: 10.padH,
+                padding: 15.padH,
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return const ReviewCard();
+                  return Padding(
+                    padding: 7.5.padH,
+                    child: SizedBox(
+                      width: 170.w,
+                      child: AlternateRentalDisplayCard(
+                          carImagePath: AppGraphics.carPlOne,
+                          manufacturerName: "Merecdes-Benz",
+                          modelName: "CLK",
+                          reviewStarCount: 4.5,
+                          onTileTap: () {},
+                          onLikeTap: () {}),
+                    ),
+                  );
                 },
               ),
             ),

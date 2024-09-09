@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/rental_card_event_list_tile.dart';
-import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
 
 class RentalList extends ConsumerWidget {
+  final String imageHeroTag;
+  final String carImagePath;
   final String vehicleBrandName;
   final String vehicleLocation;
   final String vehicleModel;
@@ -16,6 +17,8 @@ class RentalList extends ConsumerWidget {
   final VoidCallback onRentalListTap;
 
   const RentalList({
+    required this.imageHeroTag,
+    required this.carImagePath,
     required this.vehicleBrandName,
     required this.vehicleLocation,
     required this.vehicleModel,
@@ -61,8 +64,13 @@ class RentalList extends ConsumerWidget {
                       minWidth: 120.h, // Set proportional minWidth
                       maxWidth: 120.h, // Set proportional maxWidth
                     ),
-                    child: AppGraphics.carPlOne.png.myImage(
-                      fit: BoxFit.cover, // Use cover for better scaling
+                    child: Hero(
+                      tag: imageHeroTag,
+                      child: Material(
+                        child: carImagePath.png.myImage(
+                          fit: BoxFit.cover, // Use cover for better scaling
+                        ),
+                      ),
                     ),
                   ),
                 ),

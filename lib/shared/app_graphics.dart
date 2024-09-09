@@ -16,6 +16,7 @@ abstract class AppGraphics {
   static const carPlTwo = 'car_pl_2';
   static const carPlThree = 'car_pl_3';
   static const eclipse = 'eclipse';
+  static const box = 'box';
   static const lightModePanel = 'light_panel';
   static const darkModePanel = 'dark_panel';
   static const adAvatar = 'ad_avatar';
@@ -23,6 +24,8 @@ abstract class AppGraphics {
   static const emptyRentals = 'rentals_empty';
   static const emptySaved = 'saved_empty';
   static const emptyMessages = 'messages_empty';
+  static const visaCardIcon = 'visa_card_icon';
+  static const verveCardIcon = 'verve_card_icon';
 
   //! NavBar Assets
   static const String homeIcon = 'home';

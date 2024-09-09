@@ -147,13 +147,13 @@ class _AirportVehicleSelectionViewState
                           const Tab(text: "All"),
                           ...vehicleTypes.asMap().entries.map((entry) {
                             String vehicleClass = entry.value;
-                            int vehicleClassCount = airportVehicleSelections
-                                .where((airportVehicleSelections) =>
-                                    airportVehicleSelections.vehicleClass ==
-                                    vehicleClass)
-                                .length;
+                            // int vehicleClassCount = airportVehicleSelections
+                            //     .where((airportVehicleSelections) =>
+                            //         airportVehicleSelections.vehicleClass ==
+                            //         vehicleClass)
+                            //     .length;
                             return Tab(
-                              text: "$vehicleClass",
+                              text: vehicleClass,
                             );
                           }),
                         ],
@@ -189,8 +189,7 @@ class _AirportVehicleSelectionViewState
                                     airportVehicleDisplay.vehicleClass,
                                 vehicleYear: airportVehicleDisplay.vehicleYear,
                                 rentalRate: airportVehicleDisplay.rentalRate,
-                                reviewStarCount:
-                                    airportVehicleDisplay.reviewCountAverage,
+                                seatCount: airportVehicleDisplay.seatCount,
                                 onTileTap: () {
                                   ref
                                       .read(airportVehicleSelectionProvider
@@ -231,22 +230,22 @@ class _AirportVehicleSelectionViewState
                                 AirportVehicleSelection airportVehicleDisplay =
                                     filteredAirportSelection[index];
                                 return AirportVehicleDisplayCard(
-                                carImagePath:
-                                    airportVehicleDisplay.carImagePath,
-                                vehicleClass:
-                                    airportVehicleDisplay.vehicleClass,
-                                vehicleYear: airportVehicleDisplay.vehicleYear,
-                                rentalRate: airportVehicleDisplay.rentalRate,
-                                reviewStarCount:
-                                    airportVehicleDisplay.reviewCountAverage,
-                                onTileTap: () {
-                                  ref
-                                      .read(airportVehicleSelectionProvider
-                                          .notifier)
-                                      .state = true;
-                                  goBack(context);
-                                },
-                              );
+                                  carImagePath:
+                                      airportVehicleDisplay.carImagePath,
+                                  vehicleClass:
+                                      airportVehicleDisplay.vehicleClass,
+                                  vehicleYear:
+                                      airportVehicleDisplay.vehicleYear,
+                                  rentalRate: airportVehicleDisplay.rentalRate,
+                                  seatCount: airportVehicleDisplay.seatCount,
+                                  onTileTap: () {
+                                    ref
+                                        .read(airportVehicleSelectionProvider
+                                            .notifier)
+                                        .state = true;
+                                    goBack(context);
+                                  },
+                                );
                               },
                               childCount: filteredAirportSelection.length,
                             ),

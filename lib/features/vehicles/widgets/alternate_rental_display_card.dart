@@ -9,8 +9,7 @@ final vehicleLikedNotifier = StateProvider<bool>((ref) {
   return false;
 });
 
-class RentalDisplayCard extends ConsumerWidget {
-  final Object imageHeroTag;
+class AlternateRentalDisplayCard extends ConsumerWidget {
   final String carImagePath;
   final String manufacturerName;
   final String modelName;
@@ -18,8 +17,7 @@ class RentalDisplayCard extends ConsumerWidget {
   final VoidCallback onTileTap;
   final VoidCallback onLikeTap;
 
-  const RentalDisplayCard({
-    required this.imageHeroTag,
+  const AlternateRentalDisplayCard({
     required this.carImagePath,
     required this.manufacturerName,
     required this.modelName,
@@ -58,9 +56,7 @@ class RentalDisplayCard extends ConsumerWidget {
                   ClipRRect(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(12.r)),
-                    child: Hero(
-                      tag: imageHeroTag,
-                      child: Material(child: carImagePath.png.myImage(fit: BoxFit.cover))),
+                    child: carImagePath.png.myImage(fit: BoxFit.cover),
                   ),
                   Positioned(
                     top: 8.h,

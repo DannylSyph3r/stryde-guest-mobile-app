@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:stryde_guest_app/features/search/views/filter_settings_view.dart';
 import 'package:stryde_guest_app/features/vehicles/models/rental_selection_model.dart';
 import 'package:stryde_guest_app/features/vehicles/views/full_vehicle_rental_details_view.dart';
@@ -22,8 +23,8 @@ class VehicleSearchView extends ConsumerStatefulWidget {
 class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
   final TextEditingController _searchFieldController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-  final ValueNotifier _locationToggle = false.notifier;
-  final ValueNotifier _fieldActiveNotifier = false.notifier;
+  final ValueNotifier<bool> _locationToggle = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _fieldActiveNotifier = ValueNotifier<bool>(false);
   List<String> carBrands = [
     "Toyota",
     "Honda",
@@ -43,8 +44,6 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
     _searchFocusNode.addListener(() {
       if (_searchFocusNode.hasFocus) {
         _fieldActiveNotifier.value = true;
-      } else {
-        // _fieldActiveNotifier.value = false;
       }
     });
   }
@@ -56,6 +55,42 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
     _locationToggle.dispose();
     _fieldActiveNotifier.dispose();
     super.dispose();
+  }
+
+  Future<void> _getLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      "Location services are disabled.".log();
+      setState(() {});
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        "Location permission denied.".log();
+        setState(() {});
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      "Location permissions are permanently denied.".log();
+      setState(() {});
+      return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        locationSettings:
+            const LocationSettings(accuracy: LocationAccuracy.high));
+
+    "Lat: ${position.latitude}, Long: ${position.longitude}".log;
+    setState(() {});
   }
 
   @override
@@ -133,7 +168,7 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
 
   Widget _buildInactiveView() {
     return ListView(
-      key: ValueKey<bool>(false),
+      key: const ValueKey<bool>(false),
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       children: [
         10.sbH,
@@ -164,6 +199,7 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
                 ),
               ).tap(onTap: () {
                 _locationToggle.value = !_locationToggle.value;
+                _getLocation(); // Fetch location when toggled
               }),
             );
           },
@@ -211,13 +247,17 @@ class _VehicleSearchViewState extends ConsumerState<VehicleSearchView> {
               (context, index) {
                 RentalSelection rentalCardDisplay = rentalSelections[index];
                 return RentalDisplayCard(
+                  imageHeroTag: 'searchViewTag$index',
                   carImagePath: rentalCardDisplay.carImagePath,
                   manufacturerName: rentalCardDisplay.manufacturerName,
                   modelName: rentalCardDisplay.modelName,
                   reviewStarCount: rentalCardDisplay.reviewCountAverage,
                   onTileTap: () {
-                    goTo(
-                        context: context, view: FullVehicleRentalDetailsView());
+                    goToUnanimated(
+                        context: context,
+                        view: FullVehicleRentalDetailsView(
+                          vehicleViewHeroTag: 'searchViewTag$index',
+                        ));
                   },
                   onLikeTap: () {},
                 );

@@ -7,7 +7,7 @@ class AirportVehicleSelection {
   final String modelName;
   final String vehicleClass;
   final String vehicleYear;
-  final double reviewCountAverage;
+  final int seatCount;
   final int rentalRate;
 
   AirportVehicleSelection({
@@ -16,7 +16,7 @@ class AirportVehicleSelection {
     required this.modelName,
     required this.vehicleClass,
     required this.vehicleYear,
-    required this.reviewCountAverage,
+    required this.seatCount,
     required this.rentalRate,
   });
 }
@@ -36,9 +36,11 @@ int getRandomRentalRate() {
   return 50000 + _random.nextInt(49000);
 }
 
-double getRandomReviewCountAverage() {
-  double randomDouble = (_random.nextDouble() * 2.0) + 3.0;
-  return double.parse(randomDouble.toStringAsFixed(1));
+int getRandomSeatCount() {
+  List<int> seatCounts = [2, 4, 6, 8, 10];
+  Random random = Random();
+  int randomIndex = random.nextInt(seatCounts.length);
+  return seatCounts[randomIndex];
 }
 
 String getRandomVehicleClass() {
@@ -57,7 +59,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Camry",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -66,7 +68,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "4 Series",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -75,7 +77,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "C-Class",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -84,7 +86,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Golf",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -93,7 +95,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Outback",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -102,7 +104,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Grand Cherokee",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -111,7 +113,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "CR-V",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -120,7 +122,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Pacifica",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -129,7 +131,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Transit",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -138,7 +140,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "F-150",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -147,7 +149,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "500",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -156,7 +158,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "MX-5 Miata",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -165,7 +167,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Sprinter",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -174,7 +176,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Defender",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -183,7 +185,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "HMMWV",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -192,7 +194,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Travato",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -201,7 +203,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Navigator",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -210,7 +212,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "N-Series",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -219,7 +221,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Yaris",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -228,7 +230,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Elantra",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -237,7 +239,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Corvette",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -246,7 +248,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "MX-5 Miata RF",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -255,7 +257,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Cooper",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -264,7 +266,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "V60",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -273,7 +275,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Explorer",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -282,7 +284,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Tucson",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -291,7 +293,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Sienna",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -300,7 +302,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Metris",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -309,7 +311,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "1500",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -318,7 +320,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Mustang",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -327,7 +329,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Camaro",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -336,7 +338,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Civic",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -345,7 +347,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "V90",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -354,7 +356,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Land Cruiser",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -363,7 +365,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Outback",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -372,7 +374,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Pacifica",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -381,7 +383,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "1500",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -390,7 +392,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "500",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -399,7 +401,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "MX-5 Miata",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -408,7 +410,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "A4",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -417,7 +419,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Z4",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -426,7 +428,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Altima",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -435,7 +437,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Tucson",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -444,7 +446,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Wrangler",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -453,7 +455,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "911",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -462,7 +464,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Range Rover",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -471,7 +473,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Model S",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -480,7 +482,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "Enclave",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
   AirportVehicleSelection(
@@ -489,7 +491,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     modelName: "RX",
     vehicleClass: getRandomVehicleClass(),
     vehicleYear: getRandomVehicleYear(),
-    reviewCountAverage: getRandomReviewCountAverage(),
+    seatCount: getRandomSeatCount(),
     rentalRate: getRandomRentalRate(),
   ),
 ];

@@ -54,7 +54,7 @@ void showSnackBar(BuildContext context, String message) {
   );
 }
 
-bool isWithinThreeDays(DateTime? start, DateTime? end) {
+bool isWithinTwoWeeks(DateTime? start, DateTime? end) {
   if (start == null || end == null) return true;
-  return end.difference(start).inDays <= 2; // 3 days including start day
+  return end.difference(start).inDays <= 14;
 }

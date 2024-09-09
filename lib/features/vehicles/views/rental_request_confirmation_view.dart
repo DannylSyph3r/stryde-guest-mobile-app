@@ -11,8 +11,8 @@ import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/button.dart';
 import 'package:stryde_guest_app/utils/widgets/vertical_railer.dart';
 
-class RentalRequestConfirmationScreen extends ConsumerWidget {
-  const RentalRequestConfirmationScreen({super.key});
+class RentalRequestConfirmationView extends ConsumerWidget {
+  const RentalRequestConfirmationView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

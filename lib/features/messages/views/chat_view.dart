@@ -8,9 +8,11 @@ import 'package:stryde_guest_app/features/messages/models/chat_message_model.dar
 import 'package:stryde_guest_app/features/messages/widgets/bottom_chat_field.dart';
 import 'package:stryde_guest_app/features/messages/widgets/reciever_message_bubble.dart';
 import 'package:stryde_guest_app/features/messages/widgets/sender_message_bubble.dart';
+import 'package:stryde_guest_app/features/reviews/views/messages_review_view.dart';
 import 'package:stryde_guest_app/shared/app_graphics.dart';
 import 'package:stryde_guest_app/theme/palette.dart';
 import 'package:stryde_guest_app/utils/app_extensions.dart';
+import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/option_selection_modal.dart';
 import 'package:stryde_guest_app/utils/widgets/appbar.dart';
 
@@ -104,9 +106,9 @@ class _ChatViewState extends ConsumerState<ChatView> {
               child: Padding(
                 padding: 10.padV,
                 child: Center(
-                    child: "View Reviews"
-                        .txt16(color: Palette.strydeOrange)
-                        .tap(onTap: () {})),
+                    child: "View Reviews".txt16().tap(onTap: () {
+                  goTo(context: context, view: MessagesReviewView());
+                })),
               )),
           context: context),
       body: Column(

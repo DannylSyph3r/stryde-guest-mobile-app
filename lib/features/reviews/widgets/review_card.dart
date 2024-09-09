@@ -15,109 +15,64 @@ class ReviewCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bool replyVisibility = ref.watch(reviewVisibilityProvider);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             height: 250.h,
-            width: 360.w, // Add a fixed width for the ReviewCard
             decoration: BoxDecoration(
               color: Palette.buttonBG,
               borderRadius: BorderRadius.all(Radius.circular(15.r)),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
               children: [
-                Flexible(
-                  flex: 2,
-                  fit: FlexFit.loose,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 20.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 50.h,
-                              decoration: BoxDecoration(
-                                color: Palette.buttonBG.withOpacity(0.5),
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        Palette.strydeOrange.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: AppGraphics.memeoji.png
-                                    .myImage(fit: BoxFit.contain),
-                              ),
-                            ),
-                          ],
-                        ),
-                        15.sbH,
-                        "Tobirama Bt"
-                            .txt16(
-                              textAlign: TextAlign.left,
-                              fontW: F.w6,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                            .alignCenterLeft(),
-                        15.sbH,
-                        "January 24, 2023".txt14(
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        15.sbH,
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            "4.5".txt14(textAlign: TextAlign.left, fontW: F.w4),
-                            5.sbW,
-                            Icon(
-                              PhosphorIconsFill.star,
-                              size: 15.h,
-                              color: Palette.strydeOrange,
-                            ),
-                          ],
-                        ).alignCenterLeft(),
-                      ],
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 3,
-                  fit: FlexFit.loose,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          color: Palette.strydeOrange,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: AppTexts.reviewPlaceholderText.txt(
-                              size: 17.sp,
-                              textAlign: TextAlign.center,
-                              maxLines: 6,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                Row(
+                  children: [
+                    Container(
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        color: Palette.buttonBG.withOpacity(0.5),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Palette.strydeOrange.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 2,
                           ),
                         ],
                       ),
+                      child: Center(
+                          child: AppGraphics.memeoji.png
+                              .myImage(fit: BoxFit.contain)),
                     ),
+                    15.sbW,
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Container(
+                          child: "Amane Miyuzaki"
+                              .txt14(
+                                  textAlign: TextAlign.left,
+                                  fontW: F.w6,
+                                  overflow: TextOverflow.ellipsis)
+                              .alignCenterLeft(),
+                        ),
+                        3.sbH,
+                        "January 24th, 2023"
+                            .txt12(textAlign: TextAlign.left, fontW: F.w4)
+                            .alignCenterLeft(),
+                      ],
+                    ))
+                  ],
+                ),
+                20.sbH,
+                Center(
+                  child: AppTexts.reviewPlaceholderText.txt(
+                    size: 17.sp,
+                    textAlign: TextAlign.center,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

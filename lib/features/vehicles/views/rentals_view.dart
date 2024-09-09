@@ -134,7 +134,15 @@ class _RentalsViewState extends ConsumerState<RentalsView> {
 
   Widget _buildRentalList(List<Map<String, String>> rentals) {
     if (rentals.isEmpty) {
-      return Center(child: AppGraphics.emptyRentals.png.myImage());
+      return Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AppGraphics.emptyRentals.png.myImage(),
+          10.sbH,
+          "No rentals yet. Lets roll!".txt14()
+        ],
+      ));
     }
 
     return ListView.builder(
@@ -144,13 +152,18 @@ class _RentalsViewState extends ConsumerState<RentalsView> {
       itemBuilder: (context, index) {
         final rental = rentals[index];
         return RentalList(
+          imageHeroTag: 'rentalsView$index',
+          carImagePath: AppGraphics.carPlOne,
           vehicleBrandName: rental['brandName'] ?? 'Unknown',
           vehicleLocation: rental['location'] ?? 'Unknown',
           vehicleModel: rental['model'] ?? 'Unknown',
           vehicleTrim: rental['trim'] ?? 'Unknown',
           rentalRate: rental['rate'] ?? 'Unknown',
           onRentalListTap: () {
-            goTo(context: context, view: FullVehicleRentalDetailsView());
+            goToUnanimated(
+                context: context,
+                view: FullVehicleRentalDetailsView(
+                    vehicleViewHeroTag: 'rentalsView$index'));
           },
         );
       },

@@ -9,7 +9,7 @@ class AirportVehicleDisplayCard extends StatelessWidget {
   final String vehicleClass;
   final String vehicleYear;
   final int rentalRate;
-  final double reviewStarCount;
+  final int seatCount;
   final VoidCallback onTileTap;
 
   const AirportVehicleDisplayCard({
@@ -17,7 +17,7 @@ class AirportVehicleDisplayCard extends StatelessWidget {
     required this.vehicleClass,
     required this.vehicleYear,
     required this.rentalRate,
-    required this.reviewStarCount,
+    required this.seatCount,
     required this.onTileTap,
     super.key,
   });
@@ -48,7 +48,8 @@ class AirportVehicleDisplayCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(12.r)),
                     child: carImagePath.png.myImage(fit: BoxFit.cover),
                   ),
                 ],
@@ -71,28 +72,11 @@ class AirportVehicleDisplayCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         4.sbH,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            vehicleYear.txt(
-                              size: 14.sp,
-                              color: Palette.whiteColor.withOpacity(0.8),
-                              fontW: F.w6,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  PhosphorIconsFill.seat,
-                                  size: 16.h,
-                                  color: Palette.strydeOrange,
-                                ),
-                                5.sbW,
-                                "4".txt14(fontW: F.w6)
-                              ],
-                            )
-                          ],
+                        vehicleYear.txt(
+                          size: 14.sp,
+                          color: Palette.whiteColor.withOpacity(0.8),
+                          fontW: F.w6,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
@@ -101,19 +85,20 @@ class AirportVehicleDisplayCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            reviewStarCount.toString().txt(
+                            Icon(
+                              PhosphorIconsFill.seat,
+                              size: 18.h,
+                              color: Palette.strydeOrange,
+                            ),
+                            4.sbW,
+                            seatCount.toString().txt(
                                   size: 14.sp,
                                   fontW: F.w4,
                                 ),
-                            4.sbW,
-                            Icon(
-                              PhosphorIconsFill.star,
-                              size: 18.h,
-                              color: Palette.strydeOrange,
-                            )
                           ],
                         ),
-                        rentalRate.toString().txt(size: 12.sp, fontW: F.w6),
+                        "₦${rentalRate.toString()}"
+                            .txt(size: 12.sp, fontW: F.w6),
                       ],
                     ),
                   ],

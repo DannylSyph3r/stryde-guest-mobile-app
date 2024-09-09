@@ -100,6 +100,8 @@ class _SavedViewState extends ConsumerState<SavedView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             AppGraphics.emptySaved.png.myImage(),
+                            10.sbH,
+                            "Save your dream ride".txt12()
                           ],
                         ),
                       ),
@@ -120,6 +122,7 @@ class _SavedViewState extends ConsumerState<SavedView> {
                             RentalSelection rentalCardDisplay =
                                 rentalSelections[index];
                             return RentalDisplayCard(
+                              imageHeroTag: 'savedViewAllTab$index',
                               carImagePath: rentalCardDisplay.carImagePath,
                               manufacturerName:
                                   rentalCardDisplay.manufacturerName,
@@ -127,9 +130,12 @@ class _SavedViewState extends ConsumerState<SavedView> {
                               reviewStarCount:
                                   rentalCardDisplay.reviewCountAverage,
                               onTileTap: () {
-                                goTo(
+                                goToUnanimated(
                                     context: context,
-                                    view: FullVehicleRentalDetailsView());
+                                    view: FullVehicleRentalDetailsView(
+                                      vehicleViewHeroTag:
+                                          'savedViewAllTab$index',
+                                    ));
                               },
                               onLikeTap: () {},
                             );
@@ -156,6 +162,8 @@ class _SavedViewState extends ConsumerState<SavedView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               AppGraphics.emptySaved.png.myImage(),
+                              10.sbH,
+                              "Save your dream ride".txt14()
                             ],
                           ),
                         ),
@@ -177,6 +185,7 @@ class _SavedViewState extends ConsumerState<SavedView> {
                               RentalSelection rentalCardDisplay =
                                   filteredRentalSelection[index];
                               return RentalDisplayCard(
+                                imageHeroTag: 'savedViewFilteredTabs$index',
                                 carImagePath: rentalCardDisplay.carImagePath,
                                 manufacturerName:
                                     rentalCardDisplay.manufacturerName,
@@ -184,9 +193,12 @@ class _SavedViewState extends ConsumerState<SavedView> {
                                 reviewStarCount:
                                     rentalCardDisplay.reviewCountAverage,
                                 onTileTap: () {
-                                  goTo(
+                                  goToUnanimated(
                                       context: context,
-                                      view: FullVehicleRentalDetailsView());
+                                      view: FullVehicleRentalDetailsView(
+                                        vehicleViewHeroTag:
+                                            'savedViewFilteredTabs$index',
+                                      ));
                                 },
                                 onLikeTap: () {},
                               );

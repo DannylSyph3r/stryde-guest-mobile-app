@@ -113,10 +113,10 @@ class CalendarView extends ConsumerWidget {
                 if (pickupDate == null) {
                   ref.read(pickupDateProvider.notifier).state = selectedDate;
                 } else if (dropoffDate == null) {
-                  if (isWithinThreeDays(pickupDate, selectedDate)) {
+                  if (isWithinTwoWeeks(pickupDate, selectedDate)) {
                     ref.read(dropoffDateProvider.notifier).state = selectedDate;
                   } else {
-                    showSnackBar(context, "Maximum limit is 3 days");
+                    showSnackBar(context, "Maximum limit is 2 weeks");
                   }
                 } else {
                   // Reset dates if both are already selected
