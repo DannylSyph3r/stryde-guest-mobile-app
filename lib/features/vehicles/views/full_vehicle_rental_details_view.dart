@@ -383,7 +383,7 @@ class _FullVehicleRentalDetailsViewState
                 )),
             20.sbH,
             Padding(
-              padding: 5.padH,
+              padding: 10.padH,
               child: FlutterCarousel(
                 items: List.generate(10, (index) => const ReviewCard()),
                 options: CarouselOptions(
