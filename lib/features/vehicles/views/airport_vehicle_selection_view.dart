@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_guest_app/core/providers/global_providers.dart';
 import 'package:stryde_guest_app/features/vehicles/models/airport_vehicle_selection.dart';
 import 'package:stryde_guest_app/features/vehicles/providers/vehicle_providers.dart';
 import 'package:stryde_guest_app/features/vehicles/widgets/airport_vehicle_card.dart';
@@ -13,6 +12,38 @@ import 'package:stryde_guest_app/utils/app_extensions.dart';
 import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/container_list_tile.dart';
 import 'package:stryde_guest_app/utils/widgets/sliver_appbar.dart';
+
+// Define the state notifier
+class AirportVehicleNotifier
+    extends StateNotifier<List<AirportVehicleSelection>> {
+  AirportVehicleNotifier() : super(airportVehicleSelections);
+
+  void filterByCategory(String category) {
+    if (category == 'All') {
+      state = airportVehicleSelections;
+    } else {
+      state = airportVehicleSelections
+          .where((vehicle) => vehicle.vehicleCategory == category)
+          .toList();
+    }
+  }
+
+  void filterBySubCategory(String subCategory) {
+    if (subCategory == 'All') {
+      state = airportVehicleSelections;
+    } else {
+      state = airportVehicleSelections
+          .where((vehicle) => vehicle.vehicleSubCategory == subCategory)
+          .toList();
+    }
+  }
+}
+
+// Define the provider
+final airportVehicleProvider = StateNotifierProvider<AirportVehicleNotifier,
+    List<AirportVehicleSelection>>((ref) {
+  return AirportVehicleNotifier();
+});
 
 class AirportVehicleSelectionView extends ConsumerStatefulWidget {
   const AirportVehicleSelectionView({super.key});
@@ -24,58 +55,73 @@ class AirportVehicleSelectionView extends ConsumerStatefulWidget {
 
 class _AirportVehicleSelectionViewState
     extends ConsumerState<AirportVehicleSelectionView> {
-  // List of vehicle classes
-  List<String> airportVehicleClasses = [
+  // List of vehicle categories
+  List<String> airportVehicleCategories = [
+    'All',
     'Executive',
     'Performance',
     'Coupes & Convertibles',
     'Utility',
     'Comfort',
-    'Electric'
   ];
 
-  // ValueNotifier initialized to the first value of airportVehicleClasses
-  late final ValueNotifier<String> _currentVehicleClassNotifier =
-      ValueNotifier<String>(airportVehicleClasses[0]);
+  // Map of subcategories for each category
+  Map<String, List<String>> subCategories = {
+    'Executive': ['All', 'Sedan', 'SUV', 'Van', 'Elite', 'Armoured'],
+    'Performance': ['All', 'Sedan', 'SUV', 'Elite SUV'],
+    'Coupes & Convertibles': ['All', 'Elite'],
+    'Utility': ['All', 'Pick-up Truck', 'Mini-Van', 'Bus'],
+    'Comfort': ['All', 'Sedan', 'SUV', 'Hatch-Back', 'Station wagon'],
+  };
+
+  late final ValueNotifier<String> _currentVehicleCategoryNotifier =
+      ValueNotifier<String>(airportVehicleCategories[0]);
 
   @override
   void dispose() {
-    _currentVehicleClassNotifier.dispose();
+    _currentVehicleCategoryNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final vehicleTypes = ref.watch(airportVehicleTypeSelectionProvider);
+    final vehicles = ref.watch(airportVehicleProvider);
 
     return ValueListenableBuilder<String>(
-      valueListenable: _currentVehicleClassNotifier,
-      builder: (context, vehicleClass, child) {
+      valueListenable: _currentVehicleCategoryNotifier,
+      builder: (context, vehicleCategory, child) {
+        List<String> currentSubCategories = vehicleCategory == 'All'
+            ? ['All']
+            : subCategories[vehicleCategory] ?? ['All'];
+
         return Scaffold(
           endDrawer: Drawer(
             width: width(context) / 2,
             child: ListView.builder(
               padding: 15.0.padA,
-              itemCount: airportVehicleClasses.length,
+              itemCount: airportVehicleCategories.length,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    if (index == 0) 50.sbH, // Add space before the first item
+                    if (index == 0) 50.sbH,
                     OptionSelectionContainerTile(
                       horizontalContentPadding: 5.w,
                       leadingIcon: PhosphorIconsFill.circle,
                       leadingIconColor:
-                          vehicleClass == airportVehicleClasses[index]
+                          vehicleCategory == airportVehicleCategories[index]
                               ? Palette.strydeOrange
                               : Colors.transparent,
                       leadingIconSize: 15.h,
-                      titleLabel: airportVehicleClasses[index],
+                      titleLabel: airportVehicleCategories[index],
                       titleFontWeight: F.w6,
                       interactiveTrailing: false,
                       onTileTap: () {
-                        // Update the ValueNotifier with the selected value
-                        _currentVehicleClassNotifier.value =
-                            airportVehicleClasses[index];
+                        _currentVehicleCategoryNotifier.value =
+                            airportVehicleCategories[index];
+                        ref
+                            .read(airportVehicleProvider.notifier)
+                            .filterByCategory(airportVehicleCategories[index]);
+                        Navigator.pop(context);
                       },
                     ),
                   ],
@@ -84,7 +130,7 @@ class _AirportVehicleSelectionViewState
             ),
           ),
           body: DefaultTabController(
-            length: vehicleTypes.length + 1,
+            length: currentSubCategories.length,
             child: NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
@@ -99,7 +145,7 @@ class _AirportVehicleSelectionViewState
                     showLeadingIconOrWidget: true,
                     titleCentered: true,
                     isTitleAWidget: false,
-                    title: vehicleClass,
+                    title: vehicleCategory,
                     titleFontSize: 20.sp,
                     titleFontWeight: FontWeight.w100,
                     actions: [
@@ -143,28 +189,17 @@ class _AirportVehicleSelectionViewState
                         unselectedLabelStyle: GoogleFonts.montserrat(
                           textStyle: TextStyle(fontSize: 16.sp),
                         ),
-                        tabs: [
-                          const Tab(text: "All"),
-                          ...vehicleTypes.asMap().entries.map((entry) {
-                            String vehicleClass = entry.value;
-                            // int vehicleClassCount = airportVehicleSelections
-                            //     .where((airportVehicleSelections) =>
-                            //         airportVehicleSelections.vehicleClass ==
-                            //         vehicleClass)
-                            //     .length;
-                            return Tab(
-                              text: vehicleClass,
-                            );
-                          }),
-                        ],
+                        tabs: currentSubCategories
+                            .map((subCategory) => Tab(text: subCategory))
+                            .toList(),
                       ),
                     ),
                   )
                 ];
               },
               body: TabBarView(
-                children: [
-                  CustomScrollView(
+                children: currentSubCategories.map((subCategory) {
+                  return CustomScrollView(
                     physics: const BouncingScrollPhysics(),
                     slivers: [
                       SliverPadding(
@@ -181,12 +216,12 @@ class _AirportVehicleSelectionViewState
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               AirportVehicleSelection airportVehicleDisplay =
-                                  airportVehicleSelections[index];
+                                  vehicles[index];
                               return AirportVehicleDisplayCard(
                                 carImagePath:
                                     airportVehicleDisplay.carImagePath,
                                 vehicleClass:
-                                    airportVehicleDisplay.vehicleClass,
+                                    airportVehicleDisplay.vehicleCategory,
                                 vehicleYear: airportVehicleDisplay.vehicleYear,
                                 rentalRate: airportVehicleDisplay.rentalRate,
                                 seatCount: airportVehicleDisplay.seatCount,
@@ -199,62 +234,13 @@ class _AirportVehicleSelectionViewState
                                 },
                               );
                             },
-                            childCount: airportVehicleSelections.length,
+                            childCount: vehicles.length,
                           ),
                         ),
                       ),
                     ],
-                  ),
-                  ...vehicleTypes.map((airport) {
-                    final filteredAirportSelection = airportVehicleSelections
-                        .where((airportPicks) =>
-                            airportPicks.vehicleClass == airport)
-                        .toList();
-
-                    return CustomScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      slivers: [
-                        SliverPadding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 15.h, horizontal: 15.w),
-                          sliver: SliverGrid(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 15.w,
-                              mainAxisSpacing: 15.h,
-                              childAspectRatio: 0.8,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                AirportVehicleSelection airportVehicleDisplay =
-                                    filteredAirportSelection[index];
-                                return AirportVehicleDisplayCard(
-                                  carImagePath:
-                                      airportVehicleDisplay.carImagePath,
-                                  vehicleClass:
-                                      airportVehicleDisplay.vehicleClass,
-                                  vehicleYear:
-                                      airportVehicleDisplay.vehicleYear,
-                                  rentalRate: airportVehicleDisplay.rentalRate,
-                                  seatCount: airportVehicleDisplay.seatCount,
-                                  onTileTap: () {
-                                    ref
-                                        .read(airportVehicleSelectionProvider
-                                            .notifier)
-                                        .state = true;
-                                    goBack(context);
-                                  },
-                                );
-                              },
-                              childCount: filteredAirportSelection.length,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-                ],
+                  );
+                }).toList(),
               ),
             ),
           ),

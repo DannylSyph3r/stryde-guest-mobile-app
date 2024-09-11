@@ -4,23 +4,16 @@ class VehicleTypeSelectionNotifier extends StateNotifier<List<String>> {
   VehicleTypeSelectionNotifier()
       : super([
           "Sedan",
-          "Coupe",
-          "Convertible",
+          "SUV (Sport Utility Vehicle)",
+          "Coupes & Convertibles",
+          "Mini-Van",
+          "Van",
+          "Pick-up Truck",
+          "Bus",
           "Hatchback",
           "Station Wagon",
-          "SUV (Sport Utility Vehicle)",
-          "Crossover",
-          "Minivan",
-          "Van",
-          "Pickup Truck",
-          "Microcar",
-          "Roadster",
-          "Panel Van",
-          "Off-Road Vehicle",
-          "Military Vehicle",
           "RV (Recreational Vehicle)",
-          "Limousine",
-          "Box Truck",
+          "Limousine"
         ]);
 }
 

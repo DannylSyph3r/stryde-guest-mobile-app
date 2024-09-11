@@ -59,8 +59,10 @@ class RentalDisplayCard extends ConsumerWidget {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(12.r)),
                     child: Hero(
-                      tag: imageHeroTag,
-                      child: Material(child: carImagePath.png.myImage(fit: BoxFit.cover))),
+                        tag: imageHeroTag,
+                        child: Material(
+                            child:
+                                carImagePath.png.myImage(fit: BoxFit.cover))),
                   ),
                   Positioned(
                     top: 8.h,
@@ -98,20 +100,28 @@ class RentalDisplayCard extends ConsumerWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        manufacturerName.txt(
-                          size: 16.sp,
-                          fontW: F.w6,
+                        Text(
+                          manufacturerName,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        4.sbH,
+                        SizedBox(height: 4.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            modelName.txt(
-                              size: 14.sp,
-                              color: Palette.whiteColor.withOpacity(0.8),
-                              fontW: F.w6,
-                              overflow: TextOverflow.ellipsis,
+                            Expanded(
+                              child: Text(
+                                modelName,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Palette.whiteColor.withOpacity(0.8),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.min,
@@ -121,8 +131,14 @@ class RentalDisplayCard extends ConsumerWidget {
                                   size: 16.h,
                                   color: Palette.strydeOrange,
                                 ),
-                                5.sbW,
-                                "4".txt14(fontW: F.w6)
+                                SizedBox(width: 5.w),
+                                Text(
+                                  "4",
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
                               ],
                             )
                           ],
@@ -134,11 +150,14 @@ class RentalDisplayCard extends ConsumerWidget {
                       children: [
                         Row(
                           children: [
-                            reviewStarCount.toString().txt(
-                                  size: 14.sp,
-                                  fontW: F.w4,
-                                ),
-                            4.sbW,
+                            Text(
+                              reviewStarCount.toString(),
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(width: 4.w),
                             Icon(
                               PhosphorIconsFill.star,
                               size: 18.h,
@@ -146,7 +165,13 @@ class RentalDisplayCard extends ConsumerWidget {
                             )
                           ],
                         ),
-                        "₦250,000 / day".txt(size: 12.sp, fontW: F.w6),
+                        Text(
+                          "₦1,250,000 / day",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   ],
