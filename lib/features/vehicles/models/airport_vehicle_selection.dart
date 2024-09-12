@@ -48,7 +48,6 @@ String getRandomVehicleYear() {
 }
 
 List<AirportVehicleSelection> airportVehicleSelections = [
-  // Executive - Sedan
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-Benz",
@@ -69,7 +68,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "BMW",
@@ -90,7 +88,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 7,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Van
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-Benz",
@@ -111,7 +108,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 8,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Elite
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Rolls-Royce",
@@ -132,13 +128,12 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 4,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Armored
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "BMW",
     modelName: "X5 Security Plus",
     vehicleCategory: "Executive",
-    vehicleSubCategory: "Armored",
+    vehicleSubCategory: "Armoured",
     vehicleYear: getRandomVehicleYear(),
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
@@ -148,12 +143,11 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     manufacturerName: "Mercedes-Benz",
     modelName: "S-Class Guard",
     vehicleCategory: "Executive",
-    vehicleSubCategory: "Armored",
+    vehicleSubCategory: "Armoured",
     vehicleYear: getRandomVehicleYear(),
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - Sedan
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "BMW",
@@ -174,7 +168,7 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - SUV
+
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Porsche",
@@ -195,7 +189,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - Elite SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Lamborghini",
@@ -216,7 +209,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Coupes & Convertibles - Elite
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ferrari",
@@ -237,7 +229,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 2,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Pick-up Truck
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ford",
@@ -258,7 +249,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 6,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Mini-Van
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Honda",
@@ -279,7 +269,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 8,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Bus
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-Benz",
@@ -300,7 +289,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 15,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - Sedan
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
@@ -321,7 +309,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Honda",
@@ -342,7 +329,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - Hatch-Back
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volkswagen",
@@ -363,7 +349,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - Station wagon
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volvo",
@@ -394,7 +379,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Range Rover",
@@ -405,7 +389,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Van
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",
@@ -416,7 +399,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 7,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Elite
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Maybach",
@@ -427,18 +409,16 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 4,
     rentalRate: getRandomRentalRate(),
   ),
-  // Executive - Armored
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Audi",
     modelName: "A8 L Security",
     vehicleCategory: "Executive",
-    vehicleSubCategory: "Armored",
+    vehicleSubCategory: "Armoured",
     vehicleYear: getRandomVehicleYear(),
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - Sedan
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Mercedes-AMG",
@@ -449,7 +429,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Alfa Romeo",
@@ -460,7 +439,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Performance - Elite SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Aston Martin",
@@ -471,7 +449,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Coupes & Convertibles - Elite
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "McLaren",
@@ -482,7 +459,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 2,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Pick-up Truck
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Ram",
@@ -493,7 +469,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 6,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Mini-Van
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Kia",
@@ -504,7 +479,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 8,
     rentalRate: getRandomRentalRate(),
   ),
-  // Utility - Bus
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Volkswagen",
@@ -515,7 +489,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 15,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - Sedan
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Hyundai",
@@ -526,7 +499,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - SUV
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Nissan",
@@ -537,7 +509,6 @@ List<AirportVehicleSelection> airportVehicleSelections = [
     seatCount: 5,
     rentalRate: getRandomRentalRate(),
   ),
-  // Comfort - Hatch-Back
   AirportVehicleSelection(
     carImagePath: getRandomCarImage(),
     manufacturerName: "Toyota",

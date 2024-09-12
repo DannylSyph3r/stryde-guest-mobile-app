@@ -13,38 +13,6 @@ import 'package:stryde_guest_app/utils/nav.dart';
 import 'package:stryde_guest_app/utils/widgets/container_list_tile.dart';
 import 'package:stryde_guest_app/utils/widgets/sliver_appbar.dart';
 
-// Define the state notifier
-class AirportVehicleNotifier
-    extends StateNotifier<List<AirportVehicleSelection>> {
-  AirportVehicleNotifier() : super(airportVehicleSelections);
-
-  void filterByCategory(String category) {
-    if (category == 'All') {
-      state = airportVehicleSelections;
-    } else {
-      state = airportVehicleSelections
-          .where((vehicle) => vehicle.vehicleCategory == category)
-          .toList();
-    }
-  }
-
-  void filterBySubCategory(String subCategory) {
-    if (subCategory == 'All') {
-      state = airportVehicleSelections;
-    } else {
-      state = airportVehicleSelections
-          .where((vehicle) => vehicle.vehicleSubCategory == subCategory)
-          .toList();
-    }
-  }
-}
-
-// Define the provider
-final airportVehicleProvider = StateNotifierProvider<AirportVehicleNotifier,
-    List<AirportVehicleSelection>>((ref) {
-  return AirportVehicleNotifier();
-});
-
 class AirportVehicleSelectionView extends ConsumerStatefulWidget {
   const AirportVehicleSelectionView({super.key});
 
@@ -54,8 +22,8 @@ class AirportVehicleSelectionView extends ConsumerStatefulWidget {
 }
 
 class _AirportVehicleSelectionViewState
-    extends ConsumerState<AirportVehicleSelectionView> {
-  // List of vehicle categories
+    extends ConsumerState<AirportVehicleSelectionView>
+    with TickerProviderStateMixin {
   List<String> airportVehicleCategories = [
     'All',
     'Executive',
@@ -65,8 +33,8 @@ class _AirportVehicleSelectionViewState
     'Comfort',
   ];
 
-  // Map of subcategories for each category
   Map<String, List<String>> subCategories = {
+    'All': ['All'],
     'Executive': ['All', 'Sedan', 'SUV', 'Van', 'Elite', 'Armoured'],
     'Performance': ['All', 'Sedan', 'SUV', 'Elite SUV'],
     'Coupes & Convertibles': ['All', 'Elite'],
@@ -74,62 +42,74 @@ class _AirportVehicleSelectionViewState
     'Comfort': ['All', 'Sedan', 'SUV', 'Hatch-Back', 'Station wagon'],
   };
 
-  late final ValueNotifier<String> _currentVehicleCategoryNotifier =
-      ValueNotifier<String>(airportVehicleCategories[0]);
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController =
+        TabController(length: subCategories['All']!.length, vsync: this);
+  }
 
   @override
   void dispose() {
-    _currentVehicleCategoryNotifier.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final vehicles = ref.watch(airportVehicleProvider);
+    final airportVehicleState = ref.watch(airportVehicleProvider);
+    final vehicles = airportVehicleState.vehicles;
+    final currentCategory = airportVehicleState.currentCategory;
+    // final currentSubCategory = airportVehicleState.currentSubCategory;
+    final isLoading = airportVehicleState.isLoading;
 
-    return ValueListenableBuilder<String>(
-      valueListenable: _currentVehicleCategoryNotifier,
-      builder: (context, vehicleCategory, child) {
-        List<String> currentSubCategories = vehicleCategory == 'All'
-            ? ['All']
-            : subCategories[vehicleCategory] ?? ['All'];
+    List<String> currentSubCategories =
+        subCategories[currentCategory] ?? ['All'];
 
-        return Scaffold(
-          endDrawer: Drawer(
-            width: width(context) / 2,
-            child: ListView.builder(
-              padding: 15.0.padA,
-              itemCount: airportVehicleCategories.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    if (index == 0) 50.sbH,
-                    OptionSelectionContainerTile(
-                      horizontalContentPadding: 5.w,
-                      leadingIcon: PhosphorIconsFill.circle,
-                      leadingIconColor:
-                          vehicleCategory == airportVehicleCategories[index]
-                              ? Palette.strydeOrange
-                              : Colors.transparent,
-                      leadingIconSize: 15.h,
-                      titleLabel: airportVehicleCategories[index],
-                      titleFontWeight: F.w6,
-                      interactiveTrailing: false,
-                      onTileTap: () {
-                        _currentVehicleCategoryNotifier.value =
-                            airportVehicleCategories[index];
-                        ref
-                            .read(airportVehicleProvider.notifier)
-                            .filterByCategory(airportVehicleCategories[index]);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          body: DefaultTabController(
+    if (_tabController.length != currentSubCategories.length) {
+      _tabController =
+          TabController(length: currentSubCategories.length, vsync: this);
+    }
+
+    return Scaffold(
+      endDrawer: Drawer(
+        width: width(context) / 2,
+        child: ListView.builder(
+          padding: 15.0.padA,
+          itemCount: airportVehicleCategories.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                if (index == 0) 50.sbH,
+                OptionSelectionContainerTile(
+                  horizontalContentPadding: 5.w,
+                  leadingIcon: PhosphorIconsFill.circle,
+                  leadingIconColor:
+                      currentCategory == airportVehicleCategories[index]
+                          ? Palette.strydeOrange
+                          : Colors.transparent,
+                  leadingIconSize: 15.h,
+                  titleLabel: airportVehicleCategories[index],
+                  titleFontWeight: F.w6,
+                  interactiveTrailing: false,
+                  onTileTap: () {
+                    ref
+                        .read(airportVehicleProvider.notifier)
+                        .filterByCategory(airportVehicleCategories[index]);
+                    Navigator.pop(context);
+                    _tabController.animateTo(0); // Reset to first tab
+                  },
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+      body: Stack(
+        children: [
+          DefaultTabController(
             length: currentSubCategories.length,
             child: NestedScrollView(
               headerSliverBuilder:
@@ -145,7 +125,7 @@ class _AirportVehicleSelectionViewState
                     showLeadingIconOrWidget: true,
                     titleCentered: true,
                     isTitleAWidget: false,
-                    title: vehicleCategory,
+                    title: currentCategory,
                     titleFontSize: 20.sp,
                     titleFontWeight: FontWeight.w100,
                     actions: [
@@ -167,6 +147,7 @@ class _AirportVehicleSelectionViewState
                       toolbarHeight: 60.h,
                       actions: const <Widget>[SizedBox.shrink()],
                       title: TabBar(
+                        controller: _tabController,
                         isScrollable: true,
                         padding: EdgeInsets.zero,
                         tabAlignment: TabAlignment.center,
@@ -192,12 +173,19 @@ class _AirportVehicleSelectionViewState
                         tabs: currentSubCategories
                             .map((subCategory) => Tab(text: subCategory))
                             .toList(),
+                        onTap: (index) {
+                          ref
+                              .read(airportVehicleProvider.notifier)
+                              .filterByCategoryAndSubCategory(
+                                  currentCategory, currentSubCategories[index]);
+                        },
                       ),
                     ),
                   )
                 ];
               },
               body: TabBarView(
+                controller: _tabController,
                 children: currentSubCategories.map((subCategory) {
                   return CustomScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -215,6 +203,9 @@ class _AirportVehicleSelectionViewState
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
+                              if (index >= vehicles.length) {
+                                return const SizedBox.shrink();
+                              }
                               AirportVehicleSelection airportVehicleDisplay =
                                   vehicles[index];
                               return AirportVehicleDisplayCard(
@@ -244,8 +235,15 @@ class _AirportVehicleSelectionViewState
               ),
             ),
           ),
-        );
-      },
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

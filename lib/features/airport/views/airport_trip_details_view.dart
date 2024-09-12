@@ -152,8 +152,8 @@ class _AirportTripDetailsViewState
           "Vehicle".txt18(fontW: F.w6),
           20.sbH,
           SizedBox(
-                  height: 260.h,
-                  width: 190.w,
+                  height: 230.h,
+                  width: 170.w,
                   child: AirportVehicleDisplayCard(
                       carImagePath: AppGraphics.carPlOne,
                       vehicleClass: "SUV",
